@@ -1,8 +1,10 @@
-package com.example.confroid_project;
+package com.example.confroid_project.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.confroid_project.R;
 
 public class MainActivity extends AppCompatActivity {
 
