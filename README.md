@@ -1,2 +1,2 @@
 # Confdroid_project
-## this project has an academic purpos
+## this project has an academic purpose
