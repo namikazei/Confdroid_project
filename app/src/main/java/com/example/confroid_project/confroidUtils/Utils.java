@@ -1,4 +1,4 @@
-package com.example.confroid_project.utils;
+package com.example.confroid_project.confroidUtils;
 
 import android.os.Bundle;
 
@@ -30,4 +30,6 @@ public class Utils {
         }
         return bundle;
     }
+
+    //public void editObject(Context context, T originalObject, Consumer<T> callback)
 }
