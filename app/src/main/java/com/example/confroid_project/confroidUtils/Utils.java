@@ -15,6 +15,24 @@ public class Utils {
         return bundle;
     }
 
+    public static Bundle convertToBundle(byte configuration) {
+        Bundle bundle = new Bundle();
+        bundle.putByte(ConfroidConstants.PRIMITIVE_VALUE, configuration);
+        return bundle;
+    }
+
+    public static Bundle convertToBundle(float configuration) {
+        Bundle bundle = new Bundle();
+        bundle.putFloat(ConfroidConstants.PRIMITIVE_VALUE, configuration);
+        return bundle;
+    }
+
+    public static Bundle convertToBundle(int configuration) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ConfroidConstants.PRIMITIVE_VALUE, configuration);
+        return bundle;
+    }
+
     public static Bundle convertToBundle(List<String> configuration) {
         Bundle bundle = new Bundle();
         for (String item : configuration) {
