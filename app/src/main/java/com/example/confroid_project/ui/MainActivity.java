@@ -1,8 +1,8 @@
 package com.example.confroid_project.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.confroid_project.R;
 
