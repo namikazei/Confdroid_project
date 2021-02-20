@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static java.lang.String.valueOf;
 
@@ -47,6 +48,22 @@ public class Utils {
             bundle.putString(entry.getKey(), entry.getValue());
         }
         return bundle;
+    }
+
+    public static String getToken(String appName) {
+        String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
+        String numbers = "0123456789";
+        String alphaNumeric = upperAlphabet + lowerAlphabet + numbers;
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        int length = 10;
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(alphaNumeric.length());
+            char randomChar = alphaNumeric.charAt(index);
+            sb.append(randomChar);
+        }
+        return appName + "_" + sb.toString();
     }
 
     //public void editObject(Context context, T originalObject, Consumer<T> callback)

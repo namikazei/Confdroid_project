@@ -2,14 +2,15 @@ package com.example.confroid_project.receivers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.confroid_project.R;
 import com.example.confroid_project.confroidUtils.ConfroidConstants;
+import com.example.confroid_project.confroidUtils.Utils;
 
 public class AppsIntentsManagerActivity extends AppCompatActivity {
+
     // En attendant de trouver une meilleure solution que d'utiliser une activité
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +29,24 @@ public class AppsIntentsManagerActivity extends AppCompatActivity {
     }
 
     void handleSendText(Intent intent) {
-
         String intentType = intent.getExtras().getString(ConfroidConstants.INTENT_TYPE);
         if (intentType != null) {
             if (intentType.equals(ConfroidConstants.FIRST_INTENT_REQUEST_TOKEN)) {
-                TextView tv_received = (TextView) findViewById(R.id.tv_received);
-                tv_received.setText(intentType + " : Hello from " + intent.getExtras().getString(ConfroidConstants.APPLICATION_NAME));
+                // AF
+                //vérifer déja que l'application n'a pas de token dans la BDD
+
+                Intent result = new Intent();
+                result.putExtra("TOKEN", Utils.getToken(intent.getExtras().getString(ConfroidConstants.APPLICATION_NAME)));
+                setResult(RESULT_OK, result);
+                finish();
+
+                // AS
+                //TextView tv_received = (TextView) findViewById(R.id.tv_received);
+                //tv_received.setText(intentType + " : Hello from " + intent.getExtras().getString(ConfroidConstants.APPLICATION_NAME));
+
             } else if (intentType.equals(ConfroidConstants.CONFIGURATION_INTENT)) {
-                // a voir les autres cas apres
+                // AF
+                // traiter les autres cas
             }
         }
     }
