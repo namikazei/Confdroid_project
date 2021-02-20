@@ -1,10 +1,14 @@
 package com.example.confroid_project.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class ConfigDb extends SQLiteOpenHelper {
 
@@ -52,6 +56,43 @@ public class ConfigDb extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + APP_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CONFIG_TABLE);
+        onCreate(db);
+    }
 
+    //fonctions de gestion des configuratons
+
+    public void addApplication(String name, String token){
+
+    }
+
+    public void addConfiguration(int appID, String value){
+
+    }
+
+
+    public String getAppToken(String appName) {
+        String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
+                + " WHERE " + APP_NAME + "=" + "'" + appName + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String token = "";
+        Cursor cursor = db.rawQuery(req, null);
+
+        if (cursor.moveToFirst()) {
+            token = cursor.getString(0);
+        }
+        cursor.close();
+        return token;
+    }
+
+    public String getAppConfiguration(String appName) {
+        return null;
+    }
+
+    public ArrayList<String> getAllAppConfiguration(String appName){
+        return null;
     }
 }
