@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -45,8 +47,8 @@ public class ConfigDb extends SQLiteOpenHelper {
         String create_config_table = "CREATE TABLE " + CONFIG_TABLE + "("
                 + CONF_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + CONF_APP_ID + " INTEGER NOT NULL,"
-                + CONF_VERSION + " INTEGER,"
-                + CONF_CONTENT + " TEXT,"
+                + CONF_VERSION + " INTEGER NOT NULL,"
+                + CONF_CONTENT + " BLOB,"
                 + CONF_DATE + " DATETIME DEFAULT CURRENT_TIMESTAMP, "
                 + " FOREIGN KEY (" + CONF_APP_ID + ")" + "REFERENCES " + APP_TABLE + "(" + APP_ID + "));";
 
@@ -71,6 +73,21 @@ public class ConfigDb extends SQLiteOpenHelper {
 
     }
 
+    public String getAppId(String appName) {
+        String req = "SELECT " + APP_ID + " FROM " + APP_TABLE
+                + " WHERE " + APP_NAME + "=" + "'" + appName + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String id = "";
+        Cursor cursor = db.rawQuery(req, null);
+
+        if (cursor.moveToFirst()) {
+            id = cursor.getString(0);
+        }
+        cursor.close();
+        return id;
+    }
 
     public String getAppToken(String appName) {
         String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
@@ -88,11 +105,52 @@ public class ConfigDb extends SQLiteOpenHelper {
         return token;
     }
 
-    public String getAppConfiguration(String appName) {
+    public String getLastConfiguration(String appName) {
+        String appID = getAppId(appName);
+        String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
+                + " WHERE " + APP_NAME + "=" + "'" + appName + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String token = "";
+        Cursor cursor = db.rawQuery(req, null);
+
+        if (cursor.moveToFirst()) {
+            token = cursor.getString(0);
+        }
+        cursor.close();
+        return token;
+    }
+
+    public String getConfigurationV(String appName, int version){
         return null;
     }
 
     public ArrayList<String> getAllAppConfiguration(String appName){
         return null;
+    }
+
+    public ArrayList<Config> getAllConfiguration(){
+        String req = "SELECT * FROM " + CONFIG_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Config> configs = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery(req, null);
+        Log.d("request", "get all conf : " + cursor.getCount());
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(cursor.getString(0));
+                int app_id = Integer.parseInt(cursor.getString(1));
+                int version = Integer.parseInt(cursor.getString(2));
+                byte[] value = cursor.getBlob(4);
+                String date = cursor.getString(5);
+
+                configs.add(new Config(id,app_id,version,value,date));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return configs;
     }
 }
