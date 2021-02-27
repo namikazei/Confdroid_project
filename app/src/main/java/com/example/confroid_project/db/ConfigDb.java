@@ -1,15 +1,14 @@
 package com.example.confroid_project.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ConfigDb extends SQLiteOpenHelper {
@@ -66,24 +65,53 @@ public class ConfigDb extends SQLiteOpenHelper {
     //fonctions de gestion des configuratons
 
     public void addApplication(String name, String token){
-
+        ContentValues values = new ContentValues();
+        values.put(APP_NAME, name);
+        values.put(APP_TOKEN, token);
+        Log.d("DB", "add app: " + values);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(APP_TABLE, null, values);
     }
 
     public void addConfiguration(int appID, String value){
+        ContentValues values = new ContentValues();
+        values.put(CONF_APP_ID, appID);
+        values.put(CONF_CONTENT, value);
+        values.put(CONF_VERSION, 5);
+        Log.d("DB", "add conf: " + values);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(APP_TABLE, null, values);
 
     }
 
-    public String getAppId(String appName) {
+    public int getLastVersion(int appID){
+        String req = "SELECT " + CONF_VERSION + " FROM " + CONFIG_TABLE
+                + " ORDER BY " + CONF_VERSION + " DESC "
+                + " WHERE " + CONF_APP_ID + "=" + "'" + appID + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        int version = 0;
+        Cursor cursor = db.rawQuery(req, null);
+
+        if (cursor.moveToFirst()) {
+            version = Integer.parseInt(cursor.getString(0));
+        }
+        cursor.close();
+        return version;
+    }
+
+    public int getAppId(String appName) {
         String req = "SELECT " + APP_ID + " FROM " + APP_TABLE
                 + " WHERE " + APP_NAME + "=" + "'" + appName + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String id = "";
+        int id = 0;
         Cursor cursor = db.rawQuery(req, null);
 
         if (cursor.moveToFirst()) {
-            id = cursor.getString(0);
+            id = Integer.parseInt(cursor.getString(0));
         }
         cursor.close();
         return id;
@@ -106,8 +134,9 @@ public class ConfigDb extends SQLiteOpenHelper {
     }
 
     public String getLastConfiguration(String appName) {
-        String appID = getAppId(appName);
+
         String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
+                + " ORDER BY " + CONF_VERSION + " DESC "
                 + " WHERE " + APP_NAME + "=" + "'" + appName + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -126,8 +155,31 @@ public class ConfigDb extends SQLiteOpenHelper {
         return null;
     }
 
-    public ArrayList<String> getAllAppConfiguration(String appName){
-        return null;
+    public ArrayList<Config> getAllAppConfiguration(String appName){
+        int appID = getAppId(appName);
+
+        String req = "SELECT * FROM " + CONFIG_TABLE
+                + " WHERE " + CONF_APP_ID + "=" + "'" + appID + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Config> configs = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery(req, null);
+        Log.d("request", "get all app conf : " + cursor.getCount());
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(cursor.getString(0));
+                int app_id = Integer.parseInt(cursor.getString(1));
+                int version = Integer.parseInt(cursor.getString(2));
+                byte[] value = cursor.getBlob(4);
+                String date = cursor.getString(5);
+
+                configs.add(new Config(id,app_id,version,value,date));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return configs;
     }
 
     public ArrayList<Config> getAllConfiguration(){
