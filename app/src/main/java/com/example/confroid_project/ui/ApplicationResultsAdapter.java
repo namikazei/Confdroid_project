@@ -1,5 +1,8 @@
 package com.example.confroid_project.ui;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,37 +24,40 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
         this.activity = activity;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.applicationRes, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.app, viewGroup, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ApplicationResultsAdapter.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        viewHolder.update(l.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return l.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public LinearLayout content;
         private final TextView title;
-        private final TextView desc;
         private final TextView state;
         private final TextView date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            content = itemView.findViewById(R.id.search_entry);
-            title = itemView.findViewById(R.id.title);
-            date = itemView.findViewById(R.id.date);
-            desc = itemView.findViewById(R.id.desc);
+            content = itemView.findViewById(R.id.applicationRes);
+            title = itemView.findViewById(R.id.applicationTitle);
+            date = itemView.findViewById(R.id.applicationDate);
             state = itemView.findViewById(R.id.state);
+        }
+
+        public void update (int i){
+
         }
     }
 }
