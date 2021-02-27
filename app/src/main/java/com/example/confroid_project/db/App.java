@@ -4,9 +4,9 @@ public class App {
 
     int id;
     String name;
-    int token;
+    String token;
 
-    App(int id, String name, int token) {
+    App(int id, String name, String token) {
         this.id = id;
         this.name = name;
         this.token = token;
@@ -16,7 +16,7 @@ public class App {
         return id;
     }
 
-    public int getToken() {
+    public String getToken() {
         return token;
     }
 
@@ -32,7 +32,16 @@ public class App {
         this.name = name;
     }
 
-    public void setToken(int token) {
+    public void setToken(String token) {
         this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "\nApp{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", token='" + token + '\'' +
+                '}';
     }
 }

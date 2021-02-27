@@ -1,13 +1,15 @@
 package com.example.confroid_project.db;
 
+import org.json.JSONObject;
+
 public class Config {
     int id;
     int app_id;
     int version;
     String date;
-    byte[] value;
+    JSONObject value;
 
-    Config(int id, int app_id, int version, byte[] value, String date) {
+    Config(int id, int app_id, int version, JSONObject value, String date) {
         this.id = id;
         this.app_id = app_id;
         this.version = version;
@@ -31,7 +33,7 @@ public class Config {
         return date;
     }
 
-    public byte[] getValue() {
+    public JSONObject getValue() {
         return value;
     }
 
@@ -51,7 +53,7 @@ public class Config {
         this.date = date;
     }
 
-    public void setValue(byte[] value) {
+    public void setValue(JSONObject value) {
         this.value = value;
     }
 }
