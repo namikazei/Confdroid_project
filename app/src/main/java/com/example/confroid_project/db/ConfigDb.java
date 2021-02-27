@@ -64,30 +64,32 @@ public class ConfigDb extends SQLiteOpenHelper {
 
     //fonctions de gestion des configuratons
 
-    public void addApplication(String name, String token){
+    public void addApplication(String name, String token) {
         ContentValues values = new ContentValues();
         values.put(APP_NAME, name);
         values.put(APP_TOKEN, token);
         Log.d("DB", "add app: " + values);
+
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(APP_TABLE, null, values);
     }
 
-    public void addConfiguration(int appID, String value){
+    public void addConfiguration(int appID, String value) {
         ContentValues values = new ContentValues();
         values.put(CONF_APP_ID, appID);
         values.put(CONF_CONTENT, value);
         values.put(CONF_VERSION, 5);
         Log.d("DB", "add conf: " + values);
+
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(APP_TABLE, null, values);
 
     }
 
-    public int getLastVersion(int appID){
+    public int getLastVersion(int appID) {
         String req = "SELECT " + CONF_VERSION + " FROM " + CONFIG_TABLE
-                + " ORDER BY " + CONF_VERSION + " DESC "
-                + " WHERE " + CONF_APP_ID + "=" + "'" + appID + "'";
+                + " WHERE " + CONF_APP_ID + "=" + "'" + appID + "'"
+                + " ORDER BY " + CONF_VERSION + " DESC ";
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -133,29 +135,62 @@ public class ConfigDb extends SQLiteOpenHelper {
         return token;
     }
 
-    public String getLastConfiguration(String appName) {
+    public Config getLastConfiguration(String appName) {
 
-        String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
-                + " ORDER BY " + CONF_VERSION + " DESC "
-                + " WHERE " + APP_NAME + "=" + "'" + appName + "'";
+        String req = "SELECT * FROM " + CONFIG_TABLE
+                + " WHERE " + CONF_APP_ID + "=" + "'" + getAppId(appName) + "'"
+                + " ORDER BY " + CONF_VERSION + " DESC ";
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String token = "";
         Cursor cursor = db.rawQuery(req, null);
 
+        int id = 0;
+        int app_id = 0;
+        int version = 0;
+        byte[] value = null;
+        String date = "";
+
         if (cursor.moveToFirst()) {
-            token = cursor.getString(0);
+            id = Integer.parseInt(cursor.getString(0));
+            app_id = Integer.parseInt(cursor.getString(1));
+            version = Integer.parseInt(cursor.getString(2));
+            value = cursor.getBlob(4);
+            date = cursor.getString(5);
         }
         cursor.close();
-        return token;
+
+        return new Config(id, app_id, version, value, date);
     }
 
-    public String getConfigurationV(String appName, int version){
-        return null;
+    public Config getConfiguration(String appName, int version) {
+        String req = "SELECT * FROM " + CONFIG_TABLE
+                + " WHERE " + CONF_APP_ID + "=" + "'" + getAppId(appName) + "'"
+                + " AND " + CONF_VERSION + "=" + "'" + version + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(req, null);
+
+        int id = 0;
+        int app_id = 0;
+        int ver = 0;
+        byte[] value = null;
+        String date = "";
+
+        if (cursor.moveToFirst()) {
+            id = Integer.parseInt(cursor.getString(0));
+            app_id = Integer.parseInt(cursor.getString(1));
+            ver = Integer.parseInt(cursor.getString(2));
+            value = cursor.getBlob(4);
+            date = cursor.getString(5);
+        }
+        cursor.close();
+
+        return new Config(id, app_id, ver, value, date);
     }
 
-    public ArrayList<Config> getAllAppConfiguration(String appName){
+    public ArrayList<Config> getAllAppConfiguration(String appName) {
         int appID = getAppId(appName);
 
         String req = "SELECT * FROM " + CONFIG_TABLE
@@ -175,14 +210,14 @@ public class ConfigDb extends SQLiteOpenHelper {
                 byte[] value = cursor.getBlob(4);
                 String date = cursor.getString(5);
 
-                configs.add(new Config(id,app_id,version,value,date));
+                configs.add(new Config(id, app_id, version, value, date));
             } while (cursor.moveToNext());
         }
         cursor.close();
         return configs;
     }
 
-    public ArrayList<Config> getAllConfiguration(){
+    public ArrayList<Config> getAllConfiguration() {
         String req = "SELECT * FROM " + CONFIG_TABLE;
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -199,7 +234,7 @@ public class ConfigDb extends SQLiteOpenHelper {
                 byte[] value = cursor.getBlob(4);
                 String date = cursor.getString(5);
 
-                configs.add(new Config(id,app_id,version,value,date));
+                configs.add(new Config(id, app_id, version, value, date));
             } while (cursor.moveToNext());
         }
         cursor.close();
