@@ -2,19 +2,19 @@ package com.example.confroid_project.db;
 
 public class App {
 
-    int id;
+    //int id;
     String name;
     String token;
 
-    App(int id, String name, String token) {
-        this.id = id;
+    App(String name, String token) {
+        //this.id = id;
         this.name = name;
         this.token = token;
     }
 
-    public int getId() {
-        return id;
-    }
+//    public int getId() {
+//        return id;
+//    }
 
     public String getToken() {
         return token;
@@ -24,9 +24,9 @@ public class App {
         return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public void setName(String name) {
         this.name = name;
@@ -39,7 +39,7 @@ public class App {
     @Override
     public String toString() {
         return "\nApp{" +
-                "id=" + id +
+                //"id=" + id +
                 ", name='" + name + '\'' +
                 ", token='" + token + '\'' +
                 '}';

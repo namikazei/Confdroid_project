@@ -12,6 +12,10 @@ import com.example.confroid_project.db.App;
 import com.example.confroid_project.db.Config;
 import com.example.confroid_project.db.ConfigDb;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 
 
@@ -35,15 +39,27 @@ public class MainActivity extends AppCompatActivity {
         in.setOnClickListener(v -> {
             db.addApplication("app1", "ger546erg");
             db.addApplication("app2", "g656edf6z");
+
+            db.addConfiguration("app1", "conf1");
+            db.addConfiguration("app1", "conf2");
+            db.addConfiguration("app1", "conf3");
+            db.addConfiguration("app2", "conf1");
+            db.addConfiguration("app2", "conf2");
         });
 
         out.setOnClickListener(v -> {
-            ArrayList<App> output = db.getApps();
-            String str = "";
-            for (App a : output){
-                str+=output.toString();
+            ArrayList<Config> output = null;
+            try {
+                output = db.getAllConfiguration();
+                StringBuilder str = new StringBuilder();
+                for (Config a : output) {
+                    str.append(a.toString());
+                }
+                txt.setText(str.toString());
+            } catch (JSONException | ParseException e) {
+                e.printStackTrace();
             }
-            txt.setText(str);
+
         });
     }
 }

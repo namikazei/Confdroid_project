@@ -55,20 +55,6 @@ public class Utils {
         return bundle;
     }
 
-    public JSONObject bundleToJson(Bundle bundle){
-        JSONObject json = new JSONObject();
-        Set<String> keys = bundle.keySet();
-        for (String key : keys) {
-            try {
-                // json.put(key, bundle.get(key));
-                json.put(key, JSONObject.wrap(bundle.get(key)));
-            } catch(JSONException e) {
-                Log.e("exception", e.getMessage());
-            }
-        }
-        return json;
-    }
-
     public static String getToken(String appName) {
         String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -86,4 +72,19 @@ public class Utils {
     }
 
     //public void editObject(Context context, T originalObject, Consumer<T> callback)
+
+
+    public JSONObject bundleToJson(Bundle bundle){
+        JSONObject json = new JSONObject();
+        Set<String> keys = bundle.keySet();
+        for (String key : keys) {
+            try {
+                // json.put(key, bundle.get(key));
+                json.put(key, JSONObject.wrap(bundle.get(key)));
+            } catch(JSONException e) {
+                Log.e("exception", e.getMessage());
+            }
+        }
+        return json;
+    }
 }
