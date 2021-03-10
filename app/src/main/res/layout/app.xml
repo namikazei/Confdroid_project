@@ -37,7 +37,7 @@
         <TextView
             android:id="@+id/applicationDate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Nombre de configurations : "
             android:textColor="@color/black"
             android:textSize="15sp"
