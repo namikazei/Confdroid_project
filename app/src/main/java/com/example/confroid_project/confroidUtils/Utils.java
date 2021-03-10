@@ -70,7 +70,6 @@ public class Utils {
         }
         return appName + "_" + sb.toString();
     }
-
     //public void editObject(Context context, T originalObject, Consumer<T> callback)
 
 
