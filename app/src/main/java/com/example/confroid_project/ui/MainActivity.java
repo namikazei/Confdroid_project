@@ -40,23 +40,29 @@ public class MainActivity extends AppCompatActivity {
             db.addApplication("app1", "ger546erg");
             db.addApplication("app2", "g656edf6z");
 
-            db.addConfiguration("app1", "conf1");
-            db.addConfiguration("app1", "conf2");
-            db.addConfiguration("app1", "conf3");
-            db.addConfiguration("app2", "conf1");
-            db.addConfiguration("app2", "conf2");
+            try {
+                db.addConfiguration("app1", "conf1");
+                db.addConfiguration("app1", "conf2");
+                db.addConfiguration("app1", "conf3");
+                db.addConfiguration("app2", "conf1");
+                db.addConfiguration("app2", "conf2");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
         });
 
         out.setOnClickListener(v -> {
             ArrayList<Config> output = null;
             try {
-                output = db.getAllConfiguration();
-                StringBuilder str = new StringBuilder();
-                for (Config a : output) {
-                    str.append(a.toString());
-                }
+//                output = db.getAllConfiguration();
+//                StringBuilder str = new StringBuilder();
+//                for (Config a : output) {
+//                    str.append(a.toString());
+//                }
+                String str = String.valueOf(db.countConf("app2"));
                 txt.setText(str.toString());
-            } catch (JSONException | ParseException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

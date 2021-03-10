@@ -5,11 +5,11 @@ import java.lang.String;
 public class Config {
     int id;
     String app_id;
-    double version;
+    int version;
     String date;
     String value;
 
-    Config(int id, String app_id, double version, String value, String date) {
+    Config(int id, String app_id, int version, String value, String date) {
         this.id = id;
         this.app_id = app_id;
         this.version = version;
@@ -25,7 +25,7 @@ public class Config {
         return app_id;
     }
 
-    public double getVersion() {
+    public int getVersion() {
         return version;
     }
 
@@ -45,7 +45,7 @@ public class Config {
         this.app_id = app_id;
     }
 
-    public void setVersion(double version) {
+    public void setVersion(int version) {
         this.version = version;
     }
 
