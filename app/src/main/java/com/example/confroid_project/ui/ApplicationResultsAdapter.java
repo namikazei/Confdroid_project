@@ -3,6 +3,7 @@ package com.example.confroid_project.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confroid_project.R;
+import com.example.confroid_project.db.App;
+import com.example.confroid_project.db.ConfigDb;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationResultsAdapter.ViewHolder> {
     private MainActivity activity;
-    private final List<Integer> l;
-    public ApplicationResultsAdapter(List<Integer> l, MainActivity activity){
-        this.l = l;
+
+    private ConfigDb db;
+    private ArrayList<App> apps;
+
+    public ApplicationResultsAdapter(MainActivity activity){
         this.activity = activity;
+        this.db = new ConfigDb(activity.getApplicationContext());
+        this.apps = db.getApps();
     }
 
 
@@ -33,12 +42,13 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.update(l.get(i));
+        viewHolder.update(apps.get(i));
+        Log.d("TAGapp", apps.get(i).getName());
     }
 
     @Override
     public int getItemCount() {
-        return l.size();
+        return 2;
     }
 
 
@@ -46,18 +56,19 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
         public LinearLayout content;
         private final TextView title;
         private final TextView state;
-        private final TextView date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             content = itemView.findViewById(R.id.applicationRes);
             title = itemView.findViewById(R.id.applicationTitle);
-            date = itemView.findViewById(R.id.applicationDate);
             state = itemView.findViewById(R.id.state);
         }
 
-        public void update (int i){
-
+        public void update (App app){
+            String t = app.getName();
+            title.setText(t);
+            String count = String.valueOf(db.countConf(app.getName()));
+            state.setText(count);
         }
     }
 }

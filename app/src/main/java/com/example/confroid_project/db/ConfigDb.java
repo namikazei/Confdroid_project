@@ -1,3 +1,18 @@
+/**
+ * void addApplication(String name, String token)
+ * void addConfiguration(String appName, String value)
+ * int getLastVersion(String appName)
+ * String getAppToken(String appName)
+ * int countConf(String appName)
+ * Config getLastConfiguration(String appName)
+ * Config getConfiguration(String appName, int version)
+ * ArrayList<App> getApps()
+ * ArrayList<Config> getAllAppConfiguration(String appName)
+ * Config getLastConfiguration(String appName)
+ * Config getConfiguration(String appName, int version)
+ * ArrayList<Config> getAllAppConfiguration(String appName)
+ */
+
 package com.example.confroid_project.db;
 
 import android.content.ContentValues;
@@ -237,9 +252,9 @@ public class ConfigDb extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int id = Integer.parseInt(cursor.getString(0));
-                String name = cursor.getString(1);
-                String token = cursor.getString(2);
+                //int id = Integer.parseInt(cursor.getString(0));
+                String name = cursor.getString(0);
+                String token = cursor.getString(1);
 
                 apps.add(new App(name, token));
             } while (cursor.moveToNext());
@@ -253,7 +268,7 @@ public class ConfigDb extends SQLiteOpenHelper {
 
         String req = "SELECT * FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
-                + " ORDER BY " + CONF_VERSION + " DESC ";;
+                + " ORDER BY " + CONF_VERSION + " DESC ";
 
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Config> configs = new ArrayList<>();

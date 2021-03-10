@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confroid_project.R;
 import com.example.confroid_project.db.App;
@@ -20,52 +22,34 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    ConfigDb db;
-    Button in, out;
-    TextView txt;
+    private RecyclerView rView;
+    private ApplicationResultsAdapter appAdapter;
+    private ConfigDb db;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.db = new ConfigDb(this);
 
-        //data base
-        db = new ConfigDb(this);
+        db.addApplication("app1", "ger546erg");
+        db.addApplication("app2", "g656edf6z");
 
-        in = findViewById(R.id.bddin);
-        out = findViewById(R.id.bddout);
-        txt = findViewById(R.id.txt);
+        rView = findViewById(R.id.recyclerView);
 
-        in.setOnClickListener(v -> {
-            db.addApplication("app1", "ger546erg");
-            db.addApplication("app2", "g656edf6z");
+        appAdapter = new ApplicationResultsAdapter(this);
 
-            try {
-                db.addConfiguration("app1", "conf1");
-                db.addConfiguration("app1", "conf2");
-                db.addConfiguration("app1", "conf3");
-                db.addConfiguration("app2", "conf1");
-                db.addConfiguration("app2", "conf2");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        rView.setAdapter(appAdapter);
+        rView.setLayoutManager(createLM());
+    }
 
-        });
 
-        out.setOnClickListener(v -> {
-            ArrayList<Config> output = null;
-            try {
-//                output = db.getAllConfiguration();
-//                StringBuilder str = new StringBuilder();
-//                for (Config a : output) {
-//                    str.append(a.toString());
-//                }
-                String str = String.valueOf(db.countConf("app2"));
-                txt.setText(str.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        });
+    private RecyclerView.LayoutManager createLM(){
+        int span = 1;
+        int orientation = rView.VERTICAL;
+        return new GridLayoutManager(this,span,orientation,false);
     }
 }
