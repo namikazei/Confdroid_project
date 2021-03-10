@@ -10,3 +10,4 @@ public class ConfroidConstants {
     public static final String APPLICATION_PACKAGE_NAME = "app_package_name";
     public static final String CONFIGURATION_INTENT = "configuration_intent";
 }
+
