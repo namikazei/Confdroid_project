@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         db.addApplication("app1", "ger546erg");
         db.addApplication("app2", "g656edf6z");
+        db.addApplication("app3", "ger546era");
+        db.addApplication("app4", "g656edf6b");
+        db.addApplication("app5", "ger546erc");
+        db.addApplication("app6", "g656edf6d");
 
         rView = findViewById(R.id.recyclerView);
 

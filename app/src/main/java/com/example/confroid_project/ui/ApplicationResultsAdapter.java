@@ -48,7 +48,7 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
 
     @Override
     public int getItemCount() {
-        return 2;
+        return apps.size();
     }
 
 
