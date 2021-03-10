@@ -102,7 +102,7 @@ public class ConfigDb extends SQLiteOpenHelper {
         }
     }
 
-    public void addConfiguration(String appName, String value) throws ParseException {
+    public boolean addConfiguration(String appName, String value){
         ContentValues values = new ContentValues();
         int lastversion = getLastVersion(appName);
         lastversion += 1;
@@ -113,10 +113,17 @@ public class ConfigDb extends SQLiteOpenHelper {
         Log.d("DB", "add conf: " + values);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(CONFIG_TABLE, null, values);
+        long rep = db.insert(CONFIG_TABLE, null, values);
+        if (rep == -1 ){
+            Toast.makeText(context, " error occured when adding configuration ", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+            Toast.makeText(context, "new configuration added with version "+lastversion, Toast.LENGTH_SHORT).show();
+            return true;
+        }
     }
 
-    public int getLastVersion(String appName) throws ParseException {
+    public int getLastVersion(String appName) {
         String req = "SELECT " + CONF_VERSION + " FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
                 + " ORDER BY " + CONF_VERSION + " DESC ";
