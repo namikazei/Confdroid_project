@@ -32,10 +32,9 @@ public class AppsIntentsManagerActivity extends AppCompatActivity {
         String intentType = intent.getExtras().getString(ConfroidConstants.INTENT_TYPE);
         if (intentType != null) {
             if (intentType.equals(ConfroidConstants.FIRST_INTENT_REQUEST_TOKEN)) {
-                // AF
-                //vérifer déja que l'application n'a pas de token dans la BDD avec le package name
                 String packageName = intent.getExtras().getString(ConfroidConstants.APPLICATION_PACKAGE_NAME);
-
+                //add name and token to db
+                //...
                 Intent result = new Intent();
                 result.putExtra("TOKEN", Utils.getToken(intent.getExtras().getString(ConfroidConstants.APPLICATION_NAME)));
                 setResult(RESULT_OK, result);
@@ -55,6 +54,7 @@ public class AppsIntentsManagerActivity extends AppCompatActivity {
                 //setResult(RESULT_OK, result);
 
                 Intent result = new Intent();
+                // if add ok else cancelled
                 setResult(RESULT_OK, result);
                 finish();
             }

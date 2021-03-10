@@ -1,8 +1,5 @@
 package com.example.confroid_project.ui;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +14,7 @@ import com.example.confroid_project.R;
 import com.example.confroid_project.db.App;
 import com.example.confroid_project.db.ConfigDb;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationResultsAdapter.ViewHolder> {
     private MainActivity activity;
@@ -27,7 +22,7 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
     private ConfigDb db;
     private ArrayList<App> apps;
 
-    public ApplicationResultsAdapter(MainActivity activity){
+    public ApplicationResultsAdapter(MainActivity activity) {
         this.activity = activity;
         this.db = new ConfigDb(activity.getApplicationContext());
         this.apps = db.getApps();
@@ -52,10 +47,10 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        public LinearLayout content;
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView title;
         private final TextView state;
+        public LinearLayout content;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,7 +59,7 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
             state = itemView.findViewById(R.id.state);
         }
 
-        public void update (App app){
+        public void update(App app) {
             String t = app.getName();
             title.setText(t);
             String count = String.valueOf(db.countConf(app.getName()));
