@@ -3,6 +3,7 @@
  * void addConfiguration(String appName, String value)
  * int getLastVersion(String appName)
  * String getAppToken(String appName)
+ * void updateConf(int id, String value)
  * int countConf(String appName)
  * Config getLastConfiguration(String appName)
  * Config getConfiguration(String appName, int version)
@@ -25,9 +26,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import org.json.JSONException;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -107,7 +105,7 @@ public class ConfigDb extends SQLiteOpenHelper {
         int lastversion = getLastVersion(appName);
         lastversion += 1;
         values.put(CONF_APP_ID, appName);
-        values.put(CONF_CONTENT, value.toString());
+        values.put(CONF_CONTENT, value);
         values.put(CONF_VERSION, lastversion);
         values.put(CONF_DATE, getDateTime());
         Log.d("DB", "add conf: " + values);
@@ -140,6 +138,14 @@ public class ConfigDb extends SQLiteOpenHelper {
         return version;
     }
 
+    public void updateConf(int id, String value){
+        ContentValues values = new ContentValues();
+        values.put(CONF_CONTENT, value);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(CONFIG_TABLE, values, CONF_ID+"=?", new String[]{String.valueOf(id)});
+        Log.d("DB", "update conf: " + values);
+    }
 
     public String getAppToken(String appName) {
         String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
@@ -173,7 +179,7 @@ public class ConfigDb extends SQLiteOpenHelper {
         return count;
     }
 
-    public ConfigurationVersions getLastConfiguration(String appName) throws JSONException, ParseException {
+    public ConfigurationVersions getLastConfiguration(String appName) {
 
         String req = "SELECT * FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
@@ -201,7 +207,7 @@ public class ConfigDb extends SQLiteOpenHelper {
         return new ConfigurationVersions(id, app_id, version, value, date);
     }
 
-    public ConfigurationVersions getConfiguration(String appName, int version) throws JSONException, ParseException {
+    public ConfigurationVersions getConfiguration(String appName, int version) {
         String req = "SELECT * FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
                 + " AND " + CONF_VERSION + "=" + "'" + version + "'";
