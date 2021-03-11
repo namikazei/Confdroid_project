@@ -1,9 +1,6 @@
 package com.example.confroid_project.ui;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +15,6 @@ import com.example.confroid_project.db.App;
 import com.example.confroid_project.db.ConfigDb;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationResultsAdapter.ViewHolder> {
     private MainActivity activity;

@@ -2,7 +2,6 @@ package com.example.confroid_project.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confroid_project.R;
-import com.example.confroid_project.db.App;
-import com.example.confroid_project.db.Config;
+import com.example.confroid_project.db.ConfigurationVersions;
 import com.example.confroid_project.db.ConfigDb;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class ConfigurationResultsAdapter extends RecyclerView.Adapter<Configurat
     private Activity activity;
 
     private ConfigDb db;
-    private ArrayList<Config> Confs;
+    private ArrayList<ConfigurationVersions> Confs;
 
     public ConfigurationResultsAdapter(Activity activity){
         this.activity = activity;
@@ -67,8 +65,7 @@ public class ConfigurationResultsAdapter extends RecyclerView.Adapter<Configurat
             date = itemView.findViewById(R.id.date);
         }
 
-        public void update (Config Conf){
-            Log.d("countItem", "getItemCount: "+Confs.size());
+        public void update (ConfigurationVersions Conf){
             String id = String.valueOf(Conf.getId());
             configurationTitle.setText(id);
             String v = String.valueOf(Conf.getVersion());
