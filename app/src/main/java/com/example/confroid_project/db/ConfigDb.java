@@ -18,7 +18,6 @@ package com.example.confroid_project.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -27,13 +26,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class ConfigDb extends SQLiteOpenHelper {
@@ -44,7 +41,6 @@ public class ConfigDb extends SQLiteOpenHelper {
     private static final String APP_TABLE = "application";
     private static final String CONFIG_TABLE = "configuration";
 
-    //private static final String APP_ID = "id";
     private static final String APP_NAME = "name";
     private static final String APP_TOKEN = "token";
 
@@ -63,9 +59,8 @@ public class ConfigDb extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // creation des table pour notre base de données
+        // creation des tables pour notre base de données
         String create_app_table = "CREATE TABLE " + APP_TABLE + "("
-                //+ APP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + APP_NAME + " TEXT PRIMARY KEY UNIQUE NOT NULL,"
                 + APP_TOKEN + " TEXT );";
 
@@ -138,21 +133,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         return version;
     }
 
-//    public int getAppId(String appName) {
-//        String req = "SELECT " + APP_ID + " FROM " + APP_TABLE
-//                + " WHERE " + APP_NAME + "=" + "'" + appName + "'";
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        int id = 0;
-//        Cursor cursor = db.rawQuery(req, null);
-//
-//        if (cursor.moveToFirst()) {
-//            id = Integer.parseInt(cursor.getString(0));
-//        }
-//        cursor.close();
-//        return id;
-//    }
 
     public String getAppToken(String appName) {
         String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
@@ -186,7 +166,7 @@ public class ConfigDb extends SQLiteOpenHelper {
         return count;
     }
 
-    public Config getLastConfiguration(String appName) throws JSONException, ParseException {
+    public ConfigurationVersions getLastConfiguration(String appName) throws JSONException, ParseException {
 
         String req = "SELECT * FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
@@ -211,10 +191,10 @@ public class ConfigDb extends SQLiteOpenHelper {
         }
         cursor.close();
 
-        return new Config(id, app_id, version, value, date);
+        return new ConfigurationVersions(id, app_id, version, value, date);
     }
 
-    public Config getConfiguration(String appName, int version) throws JSONException, ParseException {
+    public ConfigurationVersions getConfiguration(String appName, int version) throws JSONException, ParseException {
         String req = "SELECT * FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
                 + " AND " + CONF_VERSION + "=" + "'" + version + "'";
@@ -238,7 +218,7 @@ public class ConfigDb extends SQLiteOpenHelper {
         }
         cursor.close();
 
-        return new Config(id, app_id, ver, value, date);
+        return new ConfigurationVersions(id, app_id, ver, value, date);
     }
 
     public ArrayList<App> getApps() {
@@ -252,7 +232,6 @@ public class ConfigDb extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                //int id = Integer.parseInt(cursor.getString(0));
                 String name = cursor.getString(0);
                 String token = cursor.getString(1);
 
@@ -263,15 +242,14 @@ public class ConfigDb extends SQLiteOpenHelper {
         return apps;
     }
 
-    public ArrayList<Config> getAllAppConfiguration(String appName) {
-        //int appID = getAppId(appName);
+    public ArrayList<ConfigurationVersions> getAllAppConfiguration(String appName) {
 
         String req = "SELECT * FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
                 + " ORDER BY " + CONF_VERSION + " DESC ";
 
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Config> configs = new ArrayList<>();
+        ArrayList<ConfigurationVersions> configurationVersions = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(req, null);
         Log.d("request", "get all app conf : " + cursor.getCount());
@@ -284,35 +262,11 @@ public class ConfigDb extends SQLiteOpenHelper {
                 String value = cursor.getString(3);
                 String date = cursor.getString(4);
 
-                configs.add(new Config(id, app_id, version, value, date));
+                configurationVersions.add(new ConfigurationVersions(id, app_id, version, value, date));
             } while (cursor.moveToNext());
         }
         cursor.close();
-        return configs;
-    }
-
-    public ArrayList<Config> getAllConfiguration() throws JSONException, ParseException {
-        String req = "SELECT * FROM " + CONFIG_TABLE;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Config> configs = new ArrayList<>();
-
-        Cursor cursor = db.rawQuery(req, null);
-        Log.d("request", "get all conf : " + cursor.getCount());
-
-        if (cursor.moveToFirst()) {
-            do {
-                int id = Integer.parseInt(cursor.getString(0));
-                String app_id = cursor.getString(1);
-                int version = Integer.parseInt(cursor.getString(2));
-                String value = cursor.getString(3);
-                String date = cursor.getString(4);
-                Log.d("request", "get all conf : " + cursor.getCount());
-                configs.add(new Config(id, app_id, version, value, date));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return configs;
+        return configurationVersions;
     }
 
 

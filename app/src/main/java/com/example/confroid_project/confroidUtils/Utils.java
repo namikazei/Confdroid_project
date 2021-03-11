@@ -1,15 +1,10 @@
 package com.example.confroid_project.confroidUtils;
 
 import android.os.Bundle;
-import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import static java.lang.String.valueOf;
 
@@ -70,20 +65,5 @@ public class Utils {
         }
         return appName + "_" + sb.toString();
     }
-    //public void editObject(Context context, T originalObject, Consumer<T> callback)
 
-
-    public JSONObject bundleToJson(Bundle bundle){
-        JSONObject json = new JSONObject();
-        Set<String> keys = bundle.keySet();
-        for (String key : keys) {
-            try {
-                // json.put(key, bundle.get(key));
-                json.put(key, JSONObject.wrap(bundle.get(key)));
-            } catch(JSONException e) {
-                Log.e("exception", e.getMessage());
-            }
-        }
-        return json;
-    }
 }

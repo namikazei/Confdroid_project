@@ -2,7 +2,6 @@ package com.example.confroid_project.ui;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Parcelable;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import com.example.confroid_project.R;
 import com.example.confroid_project.db.App;
 import com.example.confroid_project.db.ConfigDb;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +42,6 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.update(apps.get(i));
-        Log.d("TAGapp", apps.get(i).getName());
     }
 
     @Override

@@ -18,5 +18,4 @@ public class ConfigurationPusher extends Service {
         return null;
     }
 
-
 }
