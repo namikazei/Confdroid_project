@@ -2,6 +2,7 @@ package com.example.confroid_project.ui;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,6 +70,11 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
             title.setText(t);
             String count = String.valueOf(db.countConf(app.getName()));
             state.setText(count);
+            content.setOnClickListener(a ->{
+                Intent intent = new Intent(activity, configurationActivity.class);
+                intent.putExtra("app", app.getName());
+                activity.startActivityForResult(intent,1);
+            });
         }
     }
 }
