@@ -66,7 +66,7 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
             content.setOnClickListener(a ->{
                 Intent intent = new Intent(activity, ConfigurationActivity.class);
                 intent.putExtra("app", app.getName());
-                activity.startActivityForResult(intent,1);
+                activity.startActivity(intent);
             });
         }
     }
