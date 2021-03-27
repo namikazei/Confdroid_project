@@ -1,6 +1,6 @@
 package com.example.confroid_project.ui;
 
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +22,7 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
     private ConfigDb db;
     private ArrayList<App> apps;
 
-    public ApplicationResultsAdapter(MainActivity activity) {
+    public ApplicationResultsAdapter(MainActivity activity){
         this.activity = activity;
         this.db = new ConfigDb(activity.getApplicationContext());
         this.apps = db.getApps();
@@ -38,7 +38,6 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.update(apps.get(i));
-        Log.d("TAGapp", apps.get(i).getName());
     }
 
     @Override
@@ -47,10 +46,10 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        public LinearLayout content;
         private final TextView title;
         private final TextView state;
-        public LinearLayout content;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,11 +58,16 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
             state = itemView.findViewById(R.id.state);
         }
 
-        public void update(App app) {
+        public void update (App app){
             String t = app.getName();
             title.setText(t);
             String count = String.valueOf(db.countConf(app.getName()));
             state.setText(count);
+            content.setOnClickListener(a ->{
+                Intent intent = new Intent(activity, ConfigurationActivity.class);
+                intent.putExtra("app", app.getName());
+                activity.startActivityForResult(intent,1);
+            });
         }
     }
 }

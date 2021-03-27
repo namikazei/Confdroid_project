@@ -7,7 +7,7 @@ public class ConfigurationVersions {
     String date;
     String value;
 
-    ConfigurationVersions(int id, String app_id, int version, String value, String date) {
+    public ConfigurationVersions(int id, String app_id, int version, String value, String date) {
         this.id = id;
         this.app_id = app_id;
         this.version = version;
