@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID configuration" />
+
+        <EditText
+            android:id="@+id/editIdConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edit Id configuration"
+            android:textColorHint="#333"
+            android:textSize="12dp"
+            android:enabled="false"
+            android:layout_marginBottom="20dp"
+            android:inputType="text"
+            android:background="#aaa"
+            android:maxLines="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="#000"
+            android:padding="12dp"/>
+    </TableLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Version configuration" />
+
+        <EditText
+            android:id="@+id/editVersionConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edit version configuration"
+            android:textColorHint="#333"
+            android:textSize="12dp"
+            android:layout_marginBottom="20dp"
+            android:inputType="text"
+            android:background="#aaa"
+            android:enabled="false"
+            android:maxLines="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="#000"
+            android:padding="12dp"/>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date configuration" />
+
+        <EditText
+            android:id="@+id/editDateConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edit version configuration"
+            android:textColorHint="#333"
+            android:textSize="12dp"
+            android:layout_marginBottom="20dp"
+            android:inputType="text"
+            android:background="#aaa"
+            android:enabled="false"
+            android:maxLines="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="#000"
+            android:padding="12dp"/>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valeur configuration" />
+
+        <EditText
+            android:id="@+id/editValueConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edit value configuration"
+            android:textColorHint="#333"
+            android:textSize="12dp"
+            android:layout_marginBottom="20dp"
+            android:inputType="text"
+            android:background="#ddd"
+            android:maxLines="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="#000"
+            android:padding="12dp"/>
+    </TableLayout>
+</LinearLayout>

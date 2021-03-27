@@ -107,7 +107,7 @@ public class ConfigDb extends SQLiteOpenHelper {
         int lastversion = getLastVersion(appName);
         lastversion += 1;
         values.put(CONF_APP_ID, appName);
-        values.put(CONF_CONTENT, value.toString());
+        values.put(CONF_CONTENT, value);
         values.put(CONF_VERSION, lastversion);
         values.put(CONF_DATE, getDateTime());
         Log.d("DB", "add conf: " + values);
@@ -275,5 +275,13 @@ public class ConfigDb extends SQLiteOpenHelper {
         Date date = new Date();
 
         return dateFormat.format(date);
+    }
+
+    public void updateConf(int id, String value){
+        ContentValues values = new ContentValues();
+        values.put(CONF_CONTENT, value);
+        values.put(CONF_DATE, getDateTime());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(CONFIG_TABLE, values, CONF_ID+"=?", new String[]{String.valueOf(id)});
     }
 }

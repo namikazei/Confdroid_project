@@ -64,7 +64,7 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
             String count = String.valueOf(db.countConf(app.getName()));
             state.setText(count);
             content.setOnClickListener(a ->{
-                Intent intent = new Intent(activity, configurationActivity.class);
+                Intent intent = new Intent(activity, ConfigurationActivity.class);
                 intent.putExtra("app", app.getName());
                 activity.startActivityForResult(intent,1);
             });

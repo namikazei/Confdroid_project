@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.confroid_project.R;
 
 
-public class configurationActivity extends AppCompatActivity {
+public class ConfigurationActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ConfigurationResultsAdapter confAdapter;
     private TextView ifEmpty;
@@ -30,7 +30,6 @@ public class configurationActivity extends AppCompatActivity {
         if(confAdapter.getItemCount()!=0){
             ifEmpty.setVisibility(View.INVISIBLE);
         }
-
     }
 
 
