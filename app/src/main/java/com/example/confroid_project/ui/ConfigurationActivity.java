@@ -27,15 +27,15 @@ public class ConfigurationActivity extends AppCompatActivity {
         recyclerView.setAdapter(confAdapter);
         recyclerView.setLayoutManager(createLM());
 
-        if(confAdapter.getItemCount()!=0){
+        if (confAdapter.getItemCount() != 0) {
             ifEmpty.setVisibility(View.INVISIBLE);
         }
     }
 
 
-    private RecyclerView.LayoutManager createLM(){
+    private RecyclerView.LayoutManager createLM() {
         int span = 1;
         int orientation = recyclerView.VERTICAL;
-        return new GridLayoutManager(this,span,orientation,false);
+        return new GridLayoutManager(this, span, orientation, false);
     }
 }

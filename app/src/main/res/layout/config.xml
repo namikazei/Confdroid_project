@@ -10,28 +10,28 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:baselineAligned="false"
         android:id="@+id/linearLayoutBig"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="2"
             android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/configurationTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Configuration"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
+            <TextView
+                android:id="@+id/configurationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Configuration"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
 
 
             <LinearLayout

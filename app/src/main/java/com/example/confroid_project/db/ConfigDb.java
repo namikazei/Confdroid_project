@@ -277,11 +277,11 @@ public class ConfigDb extends SQLiteOpenHelper {
         return dateFormat.format(date);
     }
 
-    public void updateConf(int id, String value){
+    public void updateConf(int id, String value) {
         ContentValues values = new ContentValues();
         values.put(CONF_CONTENT, value);
         values.put(CONF_DATE, getDateTime());
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update(CONFIG_TABLE, values, CONF_ID+"=?", new String[]{String.valueOf(id)});
+        db.update(CONFIG_TABLE, values, CONF_ID + "=?", new String[]{String.valueOf(id)});
     }
 }
