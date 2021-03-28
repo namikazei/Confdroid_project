@@ -8,9 +8,13 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.confroid_project.db.ConfigDb;
+
 import java.util.Random;
 
 public class TokenDispenser extends BroadcastReceiver {
+    ConfigDb db;
+
     public static String getToken(String appName) {
         String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -27,18 +31,21 @@ public class TokenDispenser extends BroadcastReceiver {
         return appName + "_" + sb.toString();
     }
 
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String token = "";
+        db = new ConfigDb(context);
         if (intent.getAction().equals("GET_TOKEN")) {
             String receiver = intent.getStringExtra("receiver");
             String name = intent.getStringExtra("name");
             token = getToken(name);
-            //Toast.makeText(context.getApplicationContext(), token, Toast.LENGTH_LONG).show();
+            //register to data base
+            db.addApplication(name, token);
             //calculat token and send the intent
             Intent response = new Intent("TOKEN_PULL");
             response.setClassName(name, receiver);
-            //response.setComponent(new ComponentName("com.example.test_confroid", "com.example.test_confroid.TokenPuller"));
             response.putExtra("token", token);
             ComponentName c = context.startService(response);
 

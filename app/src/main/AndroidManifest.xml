@@ -25,6 +25,15 @@
         <activity android:name=".ui.ConfigurationActivity" />
 
         <receiver android:name=".receivers.TokenDispenser" />
+
+        <service
+            android:name=".services.ConfigurationPusher"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="SERVICE_PUSHER"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
