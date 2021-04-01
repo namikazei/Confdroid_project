@@ -14,7 +14,7 @@
 
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/searchTxt"
         android:layout_weight="2"
         android:layout_width="310dp"
         android:layout_height="50dp"
@@ -27,7 +27,7 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/search"
+        android:id="@+id/butSearch"
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

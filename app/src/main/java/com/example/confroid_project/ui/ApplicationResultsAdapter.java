@@ -1,6 +1,7 @@
 package com.example.confroid_project.ui;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,8 @@ import java.util.ArrayList;
 
 public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationResultsAdapter.ViewHolder> {
     private MainActivity activity;
-
     private ConfigDb db;
-    private ArrayList<App> apps;
+    public ArrayList<App> apps;
 
     public ApplicationResultsAdapter(MainActivity activity){
         this.activity = activity;
@@ -28,6 +28,23 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
         this.apps = db.getApps();
     }
 
+    public ArrayList<App> getApps() {
+        return apps;
+    }
+
+    public void setApps(String app) {
+        Log.d("TAGapps", "-----hello----");
+        ArrayList<App> sApp = new ArrayList<>();
+        for (App a: db.getApps()) {
+            if (a.getName().contains(app)) {
+                sApp.add(a);
+                Log.d("TAGapps", ""+apps);
+            }
+        }
+        Log.d("TAGapps", ""+sApp);
+        apps.clear();
+        apps.addAll(sApp);
+    }
 
     @NonNull
     @Override
@@ -44,7 +61,6 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
     public int getItemCount() {
         return apps.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public LinearLayout content;

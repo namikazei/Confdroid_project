@@ -133,7 +133,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         return version;
     }
 
-
     public String getAppToken(String appName) {
         String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
                 + " WHERE " + APP_NAME + "=" + "'" + appName + "'";
@@ -269,11 +268,9 @@ public class ConfigDb extends SQLiteOpenHelper {
         return configurationVersions;
     }
 
-
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date date = new Date();
-
         return dateFormat.format(date);
     }
 
@@ -284,4 +281,5 @@ public class ConfigDb extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.update(CONFIG_TABLE, values, CONF_ID + "=?", new String[]{String.valueOf(id)});
     }
+
 }
