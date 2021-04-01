@@ -18,7 +18,7 @@
         android:textColor="#FF0000"
         android:width="300dp"
         android:gravity="center"
-        android:text="Cette application ne contient aucune configuration enregistrée !"
+        android:text="@string/emptyConfig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

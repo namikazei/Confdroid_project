@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="12dp">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -13,26 +13,24 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID configuration" />
+            android:text="@string/idConf" />
 
         <EditText
             android:id="@+id/editIdConf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Edit Id configuration"
-            android:textColorHint="#333"
-            android:textSize="12dp"
-            android:enabled="false"
-            android:layout_marginBottom="20dp"
-            android:inputType="text"
-            android:background="#aaa"
-            android:maxLines="1"
-            android:layout_marginRight="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="20dp"
+            android:background="#aaa"
+            android:enabled="false"
+            android:hint=""
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="12dp"
             android:textColor="#000"
-            android:padding="12dp"/>
+            android:textColorHint="#333"
+            android:textSize="12sp" />
     </TableLayout>
-
 
     <TableLayout
         android:layout_width="match_parent"
@@ -42,24 +40,23 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Version configuration" />
+            android:text="@string/vConf" />
 
         <EditText
             android:id="@+id/editVersionConf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Edit version configuration"
-            android:textColorHint="#333"
-            android:textSize="12dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
-            android:inputType="text"
             android:background="#aaa"
             android:enabled="false"
+            android:hint=""
+            android:inputType="text"
             android:maxLines="1"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
+            android:padding="12dp"
             android:textColor="#000"
-            android:padding="12dp"/>
+            android:textColorHint="#333"
+            android:textSize="12sp" />
     </TableLayout>
 
     <TableLayout
@@ -70,24 +67,23 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date configuration" />
+            android:text="@string/vConf" />
 
         <EditText
             android:id="@+id/editDateConf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Edit version configuration"
-            android:textColorHint="#333"
-            android:textSize="12dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
-            android:inputType="text"
             android:background="#aaa"
             android:enabled="false"
+            android:hint=""
+            android:inputType="text"
             android:maxLines="1"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
+            android:padding="12dp"
             android:textColor="#000"
-            android:padding="12dp"/>
+            android:textColorHint="#333"
+            android:textSize="12sp" />
     </TableLayout>
 
     <TableLayout
@@ -98,22 +94,21 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Valeur configuration" />
+            android:text="@string/valueConf" />
 
         <EditText
             android:id="@+id/editValueConf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Edit value configuration"
-            android:textColorHint="#333"
-            android:textSize="12dp"
-            android:layout_marginBottom="20dp"
-            android:inputType="text"
-            android:background="#ddd"
-            android:maxLines="1"
-            android:layout_marginRight="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ddd"
+            android:hint=""
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="12dp"
             android:textColor="#000"
-            android:padding="12dp"/>
+            android:textColorHint="#333"
+            android:textSize="12sp" />
     </TableLayout>
 </LinearLayout>

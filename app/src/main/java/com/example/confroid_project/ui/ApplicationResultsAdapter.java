@@ -28,20 +28,16 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
         this.apps = db.getApps();
     }
 
-    public ArrayList<App> getApps() {
-        return apps;
-    }
-
     public void setApps(String app) {
-        Log.d("TAGapps", "-----hello----");
         ArrayList<App> sApp = new ArrayList<>();
         for (App a: db.getApps()) {
             if (a.getName().contains(app)) {
                 sApp.add(a);
-                Log.d("TAGapps", ""+apps);
             }
         }
-        Log.d("TAGapps", ""+sApp);
+        if (app.equals("")){
+            sApp.addAll(db.getApps());
+        }
         apps.clear();
         apps.addAll(sApp);
     }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Confroid_project</string>
+    <string name="nbrConf">Number of configurations</string>
+    <string name="search">Search &#8230;</string>
+    <string name="emptyConfig">This application does not contain any saved configuration!</string>
+    <string name="idConf">Configuration ID</string>
+    <string name="vConf">Configuration version</string>
+    <string name="dConf">Configuration date</string>
+    <string name="valueConf">Configuration value</string>
+    <string name="apps">Applications</string>
+</resources>
