@@ -34,6 +34,15 @@
                 <action android:name="SERVICE_PUSHER"/>
             </intent-filter>
         </service>
+
+        <service
+            android:name=".services.ConfigurationPuller"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="SERVICE_PULLER"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

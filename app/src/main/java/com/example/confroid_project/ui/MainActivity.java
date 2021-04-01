@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(tokenDispenser, intentFilter);
 
         rView = findViewById(R.id.recyclerView);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         appAdapter = new ApplicationResultsAdapter(this);
         rView.setAdapter(appAdapter);
         rView.setLayoutManager(createLM());

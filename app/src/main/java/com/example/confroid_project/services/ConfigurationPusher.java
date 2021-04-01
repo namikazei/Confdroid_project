@@ -7,6 +7,7 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.example.confroid_project.db.App;
 import com.example.confroid_project.db.ConfigDb;
 
 import org.json.JSONException;
@@ -17,22 +18,14 @@ public class ConfigurationPusher extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         ConfigDb db = new ConfigDb(this.getApplicationContext());
-        Bundle bundle = intent.getBundleExtra("bundle");
-        String json_str = bundle.getString("json");
-        try {
-            JSONObject json_obj = new JSONObject(json_str);
+        Bundle bundle = intent.getBundleExtra("CONFIG");
+        String app_token = bundle.getString("TOKEN");
+        String app_name = bundle.getString("APP");
 
-            String name = json_obj.getString("name");
-            String token = json_obj.getString("token");
-            String tag = json_obj.getString("tag");
-            String content = json_obj.getJSONObject("content").toString();
-
-            db.addConfiguration(name,content);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (db.getAppToken(app_name).equals(app_token)){
+            String json_str = bundle.getString("JSON");
+            db.addConfiguration(app_name,json_str);
         }
-
 
         return START_STICKY;
     }

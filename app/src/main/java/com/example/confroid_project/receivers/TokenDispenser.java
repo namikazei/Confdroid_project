@@ -49,9 +49,9 @@ public class TokenDispenser extends BroadcastReceiver {
             response.putExtra("token", token);
             ComponentName c = context.startService(response);
 
-            if (c == null) {
+            if (c == null)
                 Log.e("faillllll", "failed to start with " + response);
-            }else
+            else
                 Log.d("senddd", token);
         }
     }
