@@ -1,7 +1,6 @@
 package com.example.confroid_project.ui;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +17,11 @@ import com.example.confroid_project.db.ConfigDb;
 import java.util.ArrayList;
 
 public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationResultsAdapter.ViewHolder> {
+    public ArrayList<App> apps;
     private MainActivity activity;
     private ConfigDb db;
-    public ArrayList<App> apps;
 
-    public ApplicationResultsAdapter(MainActivity activity){
+    public ApplicationResultsAdapter(MainActivity activity) {
         this.activity = activity;
         this.db = new ConfigDb(activity.getApplicationContext());
         this.apps = db.getApps();
@@ -30,14 +29,8 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
 
     public void setApps(String app) {
         ArrayList<App> sApp = new ArrayList<>();
-        for (App a: db.getApps()) {
-            if (a.getName().contains(app)) {
-                sApp.add(a);
-            }
-        }
-        if (app.equals("")){
-            sApp.addAll(db.getApps());
-        }
+        for (App a : db.getApps()) { if (a.getName().contains(app)) { sApp.add(a); }}
+        if (app.equals("")) { sApp.addAll(db.getApps()); }
         apps.clear();
         apps.addAll(sApp);
     }
@@ -58,10 +51,10 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
         return apps.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        public LinearLayout content;
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView title;
         private final TextView state;
+        public LinearLayout content;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,12 +63,13 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
             state = itemView.findViewById(R.id.state);
         }
 
-        public void update (App app){
-            String t = app.getName();
-            title.setText(t);
+        public void update(App app) {
+            String[] t = app.getName().split("\\.");
+            String name = t[t.length - 1];
+            title.setText(name);
             String count = String.valueOf(db.countConf(app.getName()));
             state.setText(count);
-            content.setOnClickListener(a ->{
+            content.setOnClickListener(a -> {
                 Intent intent = new Intent(activity, ConfigurationActivity.class);
                 intent.putExtra("app", app.getName());
                 activity.startActivity(intent);

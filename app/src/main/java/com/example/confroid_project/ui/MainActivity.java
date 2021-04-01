@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confroid_project.R;
 
-
 public class MainActivity extends AppCompatActivity {
     private RecyclerView rView;
     private ApplicationResultsAdapter appAdapter;
