@@ -29,8 +29,15 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
 
     public void setApps(String app) {
         ArrayList<App> sApp = new ArrayList<>();
-        for (App a : db.getApps()) { if (a.getName().contains(app)) { sApp.add(a); }}
-        if (app.equals("")) { sApp.clear(); sApp.addAll(db.getApps()); }
+        for (App a : db.getApps()) {
+            if (a.getName().contains(app)) {
+                sApp.add(a);
+            }
+        }
+        if (app.equals("")) {
+            sApp.clear();
+            sApp.addAll(db.getApps());
+        }
         apps.clear();
         apps.addAll(sApp);
     }

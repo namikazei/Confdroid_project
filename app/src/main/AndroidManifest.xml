@@ -9,20 +9,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Confroid_project">
-        <activity android:name=".receivers.AppsIntentsManagerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-        </activity>
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ConfigurationActivity"></activity>
+        <activity android:name=".ui.ConfigurationActivity" />
+
+        <receiver android:name=".receivers.TokenDispenser" />
+
+        <service
+            android:name=".services.ConfigurationPusher"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="SERVICE_PUSHER"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".services.ConfigurationPuller"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="SERVICE_PULLER"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

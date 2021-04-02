@@ -22,6 +22,12 @@ public class ConfigurationActivity extends AppCompatActivity {
 
         ifEmpty = findViewById(R.id.vide);
         recyclerView = findViewById(R.id.recyclerView);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         confAdapter = new ConfigurationResultsAdapter(this);
         recyclerView.setAdapter(confAdapter);
         recyclerView.setLayoutManager(createLM());
@@ -30,7 +36,6 @@ public class ConfigurationActivity extends AppCompatActivity {
             ifEmpty.setVisibility(View.INVISIBLE);
         }
     }
-
 
     private RecyclerView.LayoutManager createLM() {
         int span = 1;

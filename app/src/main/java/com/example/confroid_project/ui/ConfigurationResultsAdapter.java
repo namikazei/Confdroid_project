@@ -105,8 +105,9 @@ public class ConfigurationResultsAdapter extends RecyclerView.Adapter<Configurat
         }
 
         public void update(ConfigurationVersions conf) {
-            String id = String.valueOf(conf.getId());
-            configurationTitle.setText(id);
+            String[] name = conf.getName().split("\\.");
+            String id_name = (conf.getId()+" - "+name[name.length-1]);
+            configurationTitle.setText(id_name);
             String v = String.valueOf(conf.getVersion());
             version.setText(v);
             String d = conf.getDate();
