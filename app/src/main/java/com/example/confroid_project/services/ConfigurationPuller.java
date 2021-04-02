@@ -20,13 +20,13 @@ public class ConfigurationPuller extends Service {
         String config;
 
         String app_token = intent.getStringExtra("token");
-        String app_name = intent.getStringExtra("app");
+        String app_name = intent.getStringExtra("app_name");
 
         if (db.getAppToken(app_name).equals(app_token)){
             int version = intent.getIntExtra("version", -1);
             int requestId = intent.getIntExtra("requestId", 0);
             String receiver = intent.getStringExtra("receiver");
-            String conf_name = intent.getStringExtra("confName");
+            String conf_name = intent.getStringExtra("name");
 
             if (version==-1){
                 config = db.getLastConfiguration(app_name, conf_name).getValue();

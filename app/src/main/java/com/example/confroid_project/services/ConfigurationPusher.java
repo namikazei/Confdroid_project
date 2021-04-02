@@ -24,7 +24,8 @@ public class ConfigurationPusher extends Service {
 
         if (db.getAppToken(app_name).equals(app_token)){
             String json_str = bundle.getString("JSON");
-            db.addConfiguration(app_name,json_str);
+            String conf_name = bundle.getString("CONF_NAME");
+            db.addConfiguration(app_name, conf_name, json_str);
         }
 
         return START_STICKY;
