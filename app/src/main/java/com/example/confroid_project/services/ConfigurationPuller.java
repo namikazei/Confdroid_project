@@ -3,7 +3,6 @@ package com.example.confroid_project.services;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -18,26 +17,27 @@ public class ConfigurationPuller extends Service {
 
         ConfigDb db = new ConfigDb(this.getApplicationContext());
 
-        String config = "";
+        String config;
 
-        String app_token = intent.getStringExtra("TOKEN");
-        String app_name = intent.getStringExtra("APP");
+        String app_token = intent.getStringExtra("token");
+        String app_name = intent.getStringExtra("app");
 
         if (db.getAppToken(app_name).equals(app_token)){
-            int version = intent.getIntExtra("VERSION", -1);
-            int requestId = intent.getIntExtra("REQUEST_ID", 0);
-            String destination = intent.getStringExtra("DEST");
+            int version = intent.getIntExtra("version", -1);
+            int requestId = intent.getIntExtra("requestId", 0);
+            String receiver = intent.getStringExtra("receiver");
+            String conf_name = intent.getStringExtra("confName");
 
             if (version==-1){
-                config = db.getLastConfiguration(app_name).getValue();
+                config = db.getLastConfiguration(app_name, conf_name).getValue();
             }else{
-                config = db.getConfiguration(app_name, version).getValue();
+                config = db.getConfiguration(app_name, conf_name, version).getValue();
             }
 
             Intent outgoingIntent = new Intent("PULL_CONF_SERVICE");
-            outgoingIntent.putExtra("config", config);
+            outgoingIntent.putExtra("content", config);
             outgoingIntent.putExtra("requestId", requestId);
-            outgoingIntent.setClassName(app_name, destination);
+            outgoingIntent.setClassName(app_name, receiver);
             ComponentName c = this.startService(outgoingIntent);
 
             if (c == null)
@@ -46,7 +46,7 @@ public class ConfigurationPuller extends Service {
                 Log.d("senddd", config);
         }
 
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Nullable

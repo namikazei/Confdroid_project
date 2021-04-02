@@ -3,13 +3,15 @@ package com.example.confroid_project.db;
 public class ConfigurationVersions {
     int id;
     String app_id;
+    String name;
     int version;
     String date;
     String value;
 
-    public ConfigurationVersions(int id, String app_id, int version, String value, String date) {
+    public ConfigurationVersions(int id, String app_id, String name, int version, String value, String date) {
         this.id = id;
         this.app_id = app_id;
+        this.name = name;
         this.version = version;
         this.date = date;
         this.value = value;
@@ -29,6 +31,10 @@ public class ConfigurationVersions {
 
     public void setApp_id(String app_id) {
         this.app_id = app_id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getVersion() {
