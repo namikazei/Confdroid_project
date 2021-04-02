@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Confroid_project</string>
-    <string name="nbrConf">Nombre de configurations :</string>
+    <string name="nbrConf">Nombre de configuration :</string>
     <string name="search">Recherche &#8230;</string>
     <string name="emptyConfig">Cette application ne contient aucune configuration enregistrée !</string>
     <string name="idConf" translatable="false">ID</string>
