@@ -5,67 +5,81 @@
     android:background="@color/white"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/LinearHeader"
+    <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
+        <TableRow
+            android:id="@+id/tableL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
 
-    <EditText
-        android:id="@+id/searchTxt"
-        android:layout_weight="2"
-        android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:ems="10"
-        android:paddingStart="10dp"
-        android:paddingEnd="5dp"
-        android:background="#ddd"
-        android:hint="@string/search"
-        android:textColor="#000"
-        android:textColorHint="#888"
-        android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/searchTxt"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="2"
+                android:background="#ddd"
+                android:ems="10"
+                android:hint="@string/search"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
+                android:textColor="#000"
+                android:textColorHint="#888" />
 
-    <Button
-        android:id="@+id/butSearch"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="5dp"
-        android:layout_marginEnd="20dp"
-        android:paddingEnd="5dp"
-        android:backgroundTint="#00AF54"
-        android:layout_gravity="center"
-        android:gravity="center"
-        app:icon="@android:drawable/ic_menu_search"
-        app:iconTint="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/butSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="#00AF54"
+                android:gravity="center"
+                app:icon="@android:drawable/ic_menu_search"
+                app:iconTint="#ffffff" />
 
-    </LinearLayout>
+        </TableRow>
 
+        <TableRow
+            android:id="@+id/headerMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="15dp">
+            <TextView
+                android:id="@+id/countResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/apps"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+        </TableRow>
 
-    <TextView
-        android:id="@+id/countResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="start"
-        android:text="@string/apps"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/LinearHeader" />
+        <TableRow
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countResult" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"/>
+
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

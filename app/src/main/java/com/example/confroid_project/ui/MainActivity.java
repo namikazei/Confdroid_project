@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rView;
     private ApplicationResultsAdapter appAdapter;
     private EditText searchTxt;
-    private ConfigDb db;
     private Button butSearch;
     private TokenDispenser tokenDispenser = new TokenDispenser();
 
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         searchTxt = findViewById(R.id.searchTxt);
         butSearch = findViewById(R.id.butSearch);
-        db = new ConfigDb(this);
         rView = findViewById(R.id.recyclerView);
         IntentFilter intentFilter = new IntentFilter("GET_TOKEN");
         registerReceiver(tokenDispenser, intentFilter);
