@@ -1,4 +1,4 @@
-/**
+/*
  * void addApplication(String name, String token)
  * void addConfiguration(String appName, String value)
  * int getLastVersion(String appName)

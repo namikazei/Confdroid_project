@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confroid_project.R;
 
-
 public class ConfigurationActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ConfigurationResultsAdapter confAdapter;
@@ -40,7 +39,7 @@ public class ConfigurationActivity extends AppCompatActivity {
 
     private RecyclerView.LayoutManager createLM() {
         int span = 1;
-        int orientation = recyclerView.VERTICAL;
+        int orientation = RecyclerView.VERTICAL;
         return new GridLayoutManager(this, span, orientation, false);
     }
 }

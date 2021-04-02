@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Confroid_project</string>
+    <string name="app_name" translatable="false">Confroid_project</string>
+    <string name="nbrConf">Nombre de configuration :</string>
+    <string name="search">Recherche &#8230;</string>
+    <string name="emptyConfig">Cette application ne contient aucune configuration enregistrée !</string>
+    <string name="idConf" translatable="false">ID</string>
+    <string name="vConf" translatable="false">Version</string>
+    <string name="dConf" translatable="false">Date</string>
+    <string name="valueConf">Valeur</string>
+    <string name="apps" translatable="false">Applications</string>
 </resources>

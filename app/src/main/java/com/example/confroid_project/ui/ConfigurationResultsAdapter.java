@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class ConfigurationResultsAdapter extends RecyclerView.Adapter<ConfigurationResultsAdapter.ViewHolder> {
     private Activity activity;
     private Context context;
-    private String idApp;
     private ConfigDb db;
     private ArrayList<ConfigurationVersions> Confs;
     private AlertDialog.Builder builder;
@@ -34,10 +33,8 @@ public class ConfigurationResultsAdapter extends RecyclerView.Adapter<Configurat
         this.activity = activity;
         this.context = activity.getApplicationContext();
         this.db = new ConfigDb(activity.getApplicationContext());
-
         Intent intent = activity.getIntent();
         String app = intent.getStringExtra("app");
-        this.idApp = app;
         this.Confs = db.getAllAppConfiguration(app);
     }
 
@@ -108,8 +105,9 @@ public class ConfigurationResultsAdapter extends RecyclerView.Adapter<Configurat
         }
 
         public void update(ConfigurationVersions conf) {
-            String id = String.valueOf(conf.getId());
-            configurationTitle.setText(id);
+            String[] name = conf.getName().split("\\.");
+            String id_name = (conf.getId()+" - "+name[name.length-1]);
+            configurationTitle.setText(id_name);
             String v = String.valueOf(conf.getVersion());
             version.setText(v);
             String d = conf.getDate();

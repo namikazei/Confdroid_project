@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nbrConf">Number of configurations</string>
+    <string name="search">Search &#8230;</string>
+    <string name="emptyConfig">This application does not contain any saved configuration!</string>
+    <string name="valueConf">Value</string>
+</resources>
