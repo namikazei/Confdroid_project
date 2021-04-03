@@ -21,7 +21,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -91,7 +90,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(APP_NAME, name);
         values.put(APP_TOKEN, token);
-        Log.d("DB", "add app: " + values);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -111,7 +109,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         values.put(CONF_CONTENT, value);
         values.put(CONF_VERSION, lastversion);
         values.put(CONF_DATE, getDateTime());
-        Log.d("DB", "add conf: " + values);
 
         SQLiteDatabase db = this.getWritableDatabase();
         long rep = db.insert(CONFIG_TABLE, null, values);
@@ -148,7 +145,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         values.put(CONF_DATE, getDateTime());
         SQLiteDatabase db = this.getWritableDatabase();
         db.update(CONFIG_TABLE, values, CONF_ID+"=?", new String[]{String.valueOf(id)});
-        Log.d("DB", "update conf: " + values);
     }
 
     public String getAppToken(String appName) {
@@ -251,7 +247,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         ArrayList<App> apps = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(req, null);
-        Log.d("request", "get all Apps : " + cursor.getCount());
 
         if (cursor.moveToFirst()) {
             do {
@@ -275,7 +270,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         ArrayList<ConfigurationVersions> configurationVersions = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(req, null);
-        Log.d("request", "get all app conf : " + cursor.getCount());
 
         if (cursor.moveToFirst()) {
             do {
