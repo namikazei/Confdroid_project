@@ -31,16 +31,17 @@ public class ConfigurationPusher extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         ConfigDb db = new ConfigDb(this.getApplicationContext());
-        Bundle bundle = intent.getBundleExtra("CONFIG");
-        String app_token = bundle.getString("TOKEN");
-        String app_name = bundle.getString("APP");
+        if (intent.getBundleExtra("CONFIG") != null) {
+            Bundle bundle = intent.getBundleExtra("CONFIG");
+            String app_token = bundle.getString("TOKEN");
+            String app_name = bundle.getString("APP");
 
-        if (db.getAppToken(app_name).equals(app_token)){
-            String json_str = bundle.getString("JSON");
-            String conf_name = bundle.getString("CONF_NAME");
-            db.addConfiguration(app_name, conf_name, json_str);
+            if (db.getAppToken(app_name).equals(app_token)) {
+                String json_str = bundle.getString("JSON");
+                String conf_name = bundle.getString("CONF_NAME");
+                db.addConfiguration(app_name, conf_name, json_str);
+            }
         }
-
         return START_STICKY;
     }
 

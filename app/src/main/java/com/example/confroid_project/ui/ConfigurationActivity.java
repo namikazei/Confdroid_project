@@ -2,8 +2,10 @@ package com.example.confroid_project.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.audiofx.DynamicsProcessing;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confroid_project.R;
+import com.example.confroid_project.db.ConfigDb;
 import com.example.confroid_project.db.ConfigurationVersions;
 import com.example.confroid_project.storage.StorageUtils;
 import com.google.gson.Gson;
@@ -28,6 +31,7 @@ public class ConfigurationActivity extends AppCompatActivity {
     Button bt_save;
     Button bt_restore;
     ArrayList<ConfigurationVersions> configuratonsList;
+    private ConfigDb db;
     private RecyclerView recyclerView;
     private ConfigurationResultsAdapter confAdapter;
     private TextView ifEmpty;
@@ -36,6 +40,8 @@ public class ConfigurationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configs_layout);
+
+        db = new ConfigDb(this);
 
         confAdapter = new ConfigurationResultsAdapter(this);
         ifEmpty = findViewById(R.id.vide);
@@ -82,7 +88,7 @@ public class ConfigurationActivity extends AppCompatActivity {
             }
             confAdapter.setConfigurationsList(restoredConfigurations);
             configuratonsList = restoredConfigurations;
-            // on mets a jour la bdd ici
+            db.restore(configuratonsList, configuratonsList.get(0).getApp_id());
         }
     }
 
