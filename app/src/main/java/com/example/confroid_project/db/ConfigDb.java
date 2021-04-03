@@ -93,14 +93,11 @@ public class ConfigDb extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        try {
-            db.insert(APP_TABLE, null, values);
-        } catch (Exception e) {
-            Toast.makeText(context, "Application exists " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        db.insert(APP_TABLE, null, values);
+        db.close();
     }
 
-    public boolean addConfiguration(String appName, String confName, String value){
+    public boolean addConfiguration(String appName, String confName, String value) {
         ContentValues values = new ContentValues();
         int lastversion = getLastVersion(appName, confName);
         lastversion += 1;
@@ -112,11 +109,12 @@ public class ConfigDb extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         long rep = db.insert(CONFIG_TABLE, null, values);
-        if (rep == -1 ){
+        if (rep == -1) {
             Toast.makeText(context, " error occured when adding configuration ", Toast.LENGTH_SHORT).show();
             return false;
-        }else{
-            Toast.makeText(context, "new configuration added with version "+lastversion, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "new configuration added with version " + lastversion, Toast.LENGTH_SHORT).show();
+            db.close();
             return true;
         }
     }
@@ -139,12 +137,12 @@ public class ConfigDb extends SQLiteOpenHelper {
         return version;
     }
 
-    public void updateConf(int id, String value){
+    public void updateConf(int id, String value) {
         ContentValues values = new ContentValues();
         values.put(CONF_CONTENT, value);
         values.put(CONF_DATE, getDateTime());
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update(CONFIG_TABLE, values, CONF_ID+"=?", new String[]{String.valueOf(id)});
+        db.update(CONFIG_TABLE, values, CONF_ID + "=?", new String[]{String.valueOf(id)});
     }
 
     public String getAppToken(String appName) {
@@ -287,6 +285,33 @@ public class ConfigDb extends SQLiteOpenHelper {
         return configurationVersions;
     }
 
+    public void deleteAppConfs(String app_name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CONFIG_TABLE, CONF_APP_ID + "=?", new String[]{app_name});
+        db.close();
+    }
+
+    public void deleteConf(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CONFIG_TABLE, CONF_ID + "=" + id, null);
+        db.close();
+    }
+
+    public void restore(ArrayList<ConfigurationVersions> confs, String app_name) {
+        deleteAppConfs(app_name);
+        ContentValues values = new ContentValues();
+        SQLiteDatabase db = this.getWritableDatabase();
+        for (ConfigurationVersions conf : confs) {
+            values.put(CONF_APP_ID, conf.getApp_id());
+            values.put(CONF_NAME, conf.getName());
+            values.put(CONF_CONTENT, conf.getValue());
+            values.put(CONF_VERSION, conf.getVersion());
+            values.put(CONF_DATE, conf.getDate());
+
+            db.insert(CONFIG_TABLE, null, values);
+        }
+        db.close();
+    }
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
