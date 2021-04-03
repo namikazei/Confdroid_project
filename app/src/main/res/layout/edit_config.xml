@@ -52,7 +52,7 @@
                 android:id="@+id/editVersionConf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="20dp"
                 android:background="#aaa"
                 android:enabled="false"
@@ -80,7 +80,6 @@
             android:id="@+id/editDateConf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
             android:background="#aaa"
             android:enabled="false"
@@ -107,7 +106,6 @@
             android:id="@+id/editValueConf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
             android:background="#ddd"
             android:minHeight="100dp"
@@ -121,4 +119,5 @@
             android:textColorHint="#333"
             android:textSize="15sp" />
     </TableLayout>
+
 </LinearLayout>
