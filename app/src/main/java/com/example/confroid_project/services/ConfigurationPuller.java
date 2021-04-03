@@ -5,13 +5,26 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.confroid_project.db.ConfigDb;
 import com.example.confroid_project.db.ConfigurationVersions;
+import com.example.confroid_project.receivers.RestartServices;
 
 public class ConfigurationPuller extends Service {
+
+    @Override
+    public void onDestroy() {
+        Toast.makeText(this, "My Service Stopped", Toast.LENGTH_LONG).show();
+        Log.d("destroy", "onDestroy");
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("RestartService");
+        broadcastIntent.putExtra("type","puller");
+        broadcastIntent.setClass(this, RestartServices.class);
+        this.sendBroadcast(broadcastIntent);
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
