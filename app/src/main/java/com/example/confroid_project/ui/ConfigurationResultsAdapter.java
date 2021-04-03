@@ -38,6 +38,14 @@ public class ConfigurationResultsAdapter extends RecyclerView.Adapter<Configurat
         this.Confs = db.getAllAppConfiguration(app);
     }
 
+    public ArrayList<ConfigurationVersions> getConfigurationsList (){
+        return Confs;
+    }
+
+    public void setConfigurationsList (ArrayList<ConfigurationVersions> configurationsList){
+        Confs = configurationsList;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
