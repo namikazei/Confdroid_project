@@ -21,7 +21,6 @@ public class ConfigurationPusher extends Service {
     @Override
     public void onDestroy() {
         Toast.makeText(this, "My Service Stopped", Toast.LENGTH_LONG).show();
-        Log.d("destroy", "onDestroy");
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("RestartService");
         broadcastIntent.putExtra("type","pusher");

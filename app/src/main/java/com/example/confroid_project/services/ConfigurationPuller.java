@@ -17,8 +17,6 @@ public class ConfigurationPuller extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "My Service Stopped", Toast.LENGTH_LONG).show();
-        Log.d("destroy", "onDestroy");
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("RestartService");
         broadcastIntent.putExtra("type","puller");
@@ -28,9 +26,7 @@ public class ConfigurationPuller extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         ConfigDb db = new ConfigDb(this.getApplicationContext());
-
         ConfigurationVersions config;
 
         String app_token = intent.getStringExtra("token");
@@ -49,22 +45,14 @@ public class ConfigurationPuller extends Service {
             }
 
             Intent outgoingIntent = new Intent("PULL_CONF_SERVICE");
-            if (config.getValue() == null) {
-                Log.e("conf value", "does not exist");
-            } else {
+            if (config.getValue() != null) {
                 outgoingIntent.putExtra("content", config.getValue());
                 outgoingIntent.putExtra("config_name", config.getName());
             }
 
-
             outgoingIntent.putExtra("requestId", requestId);
             outgoingIntent.setClassName(app_name, receiver);
             ComponentName c = this.startService(outgoingIntent);
-
-            if (c == null)
-                Log.e("faillllll", "failed to start with " + outgoingIntent);
-            else
-                Log.d("senddd", config.getValue()==null?"NULL":config.getValue());
         }
 
         return START_STICKY;

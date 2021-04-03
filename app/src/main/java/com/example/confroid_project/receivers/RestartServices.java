@@ -12,8 +12,6 @@ import com.example.confroid_project.services.ConfigurationPusher;
 public class RestartServices extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("Broadcast Listened", "Service tried to stop");
-        Toast.makeText(context, "Service restarted", Toast.LENGTH_SHORT).show();
         String type = intent.getStringExtra("type");
 
         if (type.equals("puller"))
