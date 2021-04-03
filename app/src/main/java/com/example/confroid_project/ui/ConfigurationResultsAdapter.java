@@ -38,11 +38,11 @@ public class ConfigurationResultsAdapter extends RecyclerView.Adapter<Configurat
         this.Confs = db.getAllAppConfiguration(app);
     }
 
-    public ArrayList<ConfigurationVersions> getConfigurationsList (){
+    public ArrayList<ConfigurationVersions> getConfigurationsList() {
         return Confs;
     }
 
-    public void setConfigurationsList (ArrayList<ConfigurationVersions> configurationsList){
+    public void setConfigurationsList(ArrayList<ConfigurationVersions> configurationsList) {
         Confs = configurationsList;
     }
 
@@ -114,7 +114,7 @@ public class ConfigurationResultsAdapter extends RecyclerView.Adapter<Configurat
 
         public void update(ConfigurationVersions conf) {
             String[] name = conf.getName().split("\\.");
-            String id_name = (conf.getId()+" - "+name[name.length-1]);
+            String id_name = (conf.getId() + " - " + name[name.length - 1]);
             configurationTitle.setText(id_name);
             String v = String.valueOf(conf.getVersion());
             version.setText(v);

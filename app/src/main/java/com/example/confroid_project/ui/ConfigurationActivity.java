@@ -24,22 +24,25 @@ import static com.example.confroid_project.storage.StorageUtils.RESTORE_REQUEST_
 import static com.example.confroid_project.storage.StorageUtils.SAVE_REQUEST_CODE;
 
 public class ConfigurationActivity extends AppCompatActivity {
+    TextView tv_info;
+    Button bt_save;
+    Button bt_restore;
+    ArrayList<ConfigurationVersions> configuratonsList;
     private RecyclerView recyclerView;
     private ConfigurationResultsAdapter confAdapter;
     private TextView ifEmpty;
-
-    TextView tv_info = findViewById(R.id.tv_info);
-    Button bt_save = findViewById(R.id.bt_save);
-    Button bt_restore = findViewById(R.id.bt_restore);
-    ArrayList<ConfigurationVersions> configuratonsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configs_layout);
 
+        confAdapter = new ConfigurationResultsAdapter(this);
         ifEmpty = findViewById(R.id.vide);
         recyclerView = findViewById(R.id.recyclerView);
+        tv_info = findViewById(R.id.tv_info);
+        bt_save = findViewById(R.id.bt_save);
+        bt_restore = findViewById(R.id.bt_restore);
         configuratonsList = confAdapter.getConfigurationsList();
 
         bt_save.setOnClickListener(view -> {
@@ -47,9 +50,8 @@ public class ConfigurationActivity extends AppCompatActivity {
         });
 
         bt_restore.setOnClickListener(view -> {
-            StorageUtils.openBackupFile(this);
+            StorageUtils.openRestoreSourceFile(this);
         });
-
     }
 
     @Override
@@ -79,6 +81,8 @@ public class ConfigurationActivity extends AppCompatActivity {
                 restoredConfigurations.add(config);
             }
             confAdapter.setConfigurationsList(restoredConfigurations);
+            configuratonsList = restoredConfigurations;
+            // on mets a jour la bdd ici
         }
     }
 
@@ -100,8 +104,9 @@ public class ConfigurationActivity extends AppCompatActivity {
                     currentUri = resultData.getData();
 
                     try {
-                         String restoredConfigurations = StorageUtils.readConfigurationsFromFile(this, currentUri);
+                        String restoredConfigurations = StorageUtils.readConfigurationsFromFile(this, currentUri);
                         performRestorationAction(restoredConfigurations);
+                        confAdapter.notifyDataSetChanged();
                         tv_info.setText("Configurations restaurées !");
                     } catch (IOException e) {
                         // Handle error here
@@ -110,4 +115,5 @@ public class ConfigurationActivity extends AppCompatActivity {
             }
         }
     }
+
 }
