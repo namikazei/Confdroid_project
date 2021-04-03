@@ -1,6 +1,6 @@
 package com.example.confroid_project.ui;
 
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +17,9 @@ import com.example.confroid_project.db.ConfigDb;
 import java.util.ArrayList;
 
 public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationResultsAdapter.ViewHolder> {
+    public ArrayList<App> apps;
     private MainActivity activity;
-
     private ConfigDb db;
-    private ArrayList<App> apps;
 
     public ApplicationResultsAdapter(MainActivity activity) {
         this.activity = activity;
@@ -28,6 +27,20 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
         this.apps = db.getApps();
     }
 
+    public void setApps(String app) {
+        ArrayList<App> sApp = new ArrayList<>();
+        for (App a : db.getApps()) {
+            if (a.getName().contains(app)) {
+                sApp.add(a);
+            }
+        }
+        if (app.equals("")) {
+            sApp.clear();
+            sApp.addAll(db.getApps());
+        }
+        apps.clear();
+        apps.addAll(sApp);
+    }
 
     @NonNull
     @Override
@@ -38,14 +51,12 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.update(apps.get(i));
-        Log.d("TAGapp", apps.get(i).getName());
     }
 
     @Override
     public int getItemCount() {
         return apps.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView title;
@@ -60,10 +71,16 @@ public class ApplicationResultsAdapter extends RecyclerView.Adapter<ApplicationR
         }
 
         public void update(App app) {
-            String t = app.getName();
-            title.setText(t);
+            String[] t = app.getName().split("\\.");
+            String name = t[t.length - 1];
+            title.setText(name);
             String count = String.valueOf(db.countConf(app.getName()));
             state.setText(count);
+            content.setOnClickListener(a -> {
+                Intent intent = new Intent(activity, ConfigurationActivity.class);
+                intent.putExtra("app", app.getName());
+                activity.startActivity(intent);
+            });
         }
     }
 }

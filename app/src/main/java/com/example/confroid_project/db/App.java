@@ -5,7 +5,7 @@ public class App {
     String name;
     String token;
 
-    App(String name, String token) {
+    public App(String name, String token) {
         this.name = name;
         this.token = token;
     }

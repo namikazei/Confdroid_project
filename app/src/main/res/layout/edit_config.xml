@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/idConf" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vConf" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/editIdConf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="20dp"
+                android:background="#aaa"
+                android:enabled="false"
+                android:hint=" "
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textColor="#000"
+                android:textColorHint="#333"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/editVersionConf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="20dp"
+                android:background="#aaa"
+                android:enabled="false"
+                android:hint=" "
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textColor="#000"
+                android:textColorHint="#333"
+                android:textSize="12sp" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dConf" />
+
+        <EditText
+            android:id="@+id/editDateConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="20dp"
+            android:background="#aaa"
+            android:enabled="false"
+            android:hint=" "
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:textColorHint="#333"
+            android:textSize="12sp" />
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/valueConf" />
+
+        <EditText
+            android:id="@+id/editValueConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ddd"
+            android:minHeight="100dp"
+            android:hint=" "
+            android:lines="10"
+            android:minLines="5"
+            android:gravity="top|left"
+            android:maxLines="15"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:textColorHint="#333"
+            android:textSize="15sp" />
+    </TableLayout>
+</LinearLayout>

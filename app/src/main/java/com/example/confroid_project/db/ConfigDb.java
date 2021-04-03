@@ -1,8 +1,9 @@
-/**
+/*
  * void addApplication(String name, String token)
  * void addConfiguration(String appName, String value)
  * int getLastVersion(String appName)
  * String getAppToken(String appName)
+ * void updateConf(int id, String value)
  * int countConf(String appName)
  * Config getLastConfiguration(String appName)
  * Config getConfiguration(String appName, int version)
@@ -20,14 +21,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import org.json.JSONException;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +43,7 @@ public class ConfigDb extends SQLiteOpenHelper {
 
     private static final String CONF_ID = "id";
     private static final String CONF_APP_ID = "app_id";
+    private static final String CONF_NAME = "name";
     private static final String CONF_VERSION = "version";
     private static final String CONF_CONTENT = "value";
     private static final String CONF_DATE = "date_conf";
@@ -69,6 +67,7 @@ public class ConfigDb extends SQLiteOpenHelper {
         String create_config_table = "CREATE TABLE " + CONFIG_TABLE + "("
                 + CONF_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + CONF_APP_ID + " TEXT NOT NULL,"
+                + CONF_NAME + " TEXT NOT NULL,"
                 + CONF_VERSION + " INTERGER NOT NULL,"
                 + CONF_CONTENT + " TEXT,"
                 + CONF_DATE + " DATETIME, "
@@ -91,7 +90,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(APP_NAME, name);
         values.put(APP_TOKEN, token);
-        Log.d("DB", "add app: " + values);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -102,23 +100,31 @@ public class ConfigDb extends SQLiteOpenHelper {
         }
     }
 
-    public void addConfiguration(String appName, String value) throws ParseException {
+    public boolean addConfiguration(String appName, String confName, String value){
         ContentValues values = new ContentValues();
-        int lastversion = getLastVersion(appName);
+        int lastversion = getLastVersion(appName, confName);
         lastversion += 1;
         values.put(CONF_APP_ID, appName);
-        values.put(CONF_CONTENT, value.toString());
+        values.put(CONF_NAME, confName);
+        values.put(CONF_CONTENT, value);
         values.put(CONF_VERSION, lastversion);
         values.put(CONF_DATE, getDateTime());
-        Log.d("DB", "add conf: " + values);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(CONFIG_TABLE, null, values);
+        long rep = db.insert(CONFIG_TABLE, null, values);
+        if (rep == -1 ){
+            Toast.makeText(context, " error occured when adding configuration ", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+            Toast.makeText(context, "new configuration added with version "+lastversion, Toast.LENGTH_SHORT).show();
+            return true;
+        }
     }
 
-    public int getLastVersion(String appName) throws ParseException {
+    public int getLastVersion(String appName, String confName) {
         String req = "SELECT " + CONF_VERSION + " FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
+                + " AND " + CONF_NAME + "=" + "'" + confName + "'"
                 + " ORDER BY " + CONF_VERSION + " DESC ";
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -133,6 +139,13 @@ public class ConfigDb extends SQLiteOpenHelper {
         return version;
     }
 
+    public void updateConf(int id, String value){
+        ContentValues values = new ContentValues();
+        values.put(CONF_CONTENT, value);
+        values.put(CONF_DATE, getDateTime());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(CONFIG_TABLE, values, CONF_ID+"=?", new String[]{String.valueOf(id)});
+    }
 
     public String getAppToken(String appName) {
         String req = "SELECT " + APP_TOKEN + " FROM " + APP_TABLE
@@ -166,10 +179,11 @@ public class ConfigDb extends SQLiteOpenHelper {
         return count;
     }
 
-    public ConfigurationVersions getLastConfiguration(String appName) throws JSONException, ParseException {
+    public ConfigurationVersions getLastConfiguration(String appName, String confName) {
 
         String req = "SELECT * FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
+                + " AND " + CONF_NAME + "=" + "'" + confName + "'"
                 + " ORDER BY " + CONF_VERSION + " DESC ";
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -178,6 +192,7 @@ public class ConfigDb extends SQLiteOpenHelper {
 
         int id = 0;
         String app_id = "";
+        String name = "";
         int version = 0;
         String value = null;
         String date = "";
@@ -185,18 +200,20 @@ public class ConfigDb extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             id = Integer.parseInt(cursor.getString(0));
             app_id = cursor.getString(1);
-            version = Integer.parseInt(cursor.getString(2));
-            value = cursor.getString(3);
-            date = cursor.getString(4);
+            name = cursor.getString(2);
+            version = Integer.parseInt(cursor.getString(3));
+            value = cursor.getString(4);
+            date = cursor.getString(5);
         }
         cursor.close();
 
-        return new ConfigurationVersions(id, app_id, version, value, date);
+        return new ConfigurationVersions(id, app_id, name, version, value, date);
     }
 
-    public ConfigurationVersions getConfiguration(String appName, int version) throws JSONException, ParseException {
+    public ConfigurationVersions getConfiguration(String appName, String confName, int version) {
         String req = "SELECT * FROM " + CONFIG_TABLE
                 + " WHERE " + CONF_APP_ID + "=" + "'" + appName + "'"
+                + " AND " + CONF_NAME + "=" + "'" + confName + "'"
                 + " AND " + CONF_VERSION + "=" + "'" + version + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -205,6 +222,7 @@ public class ConfigDb extends SQLiteOpenHelper {
 
         int id = 0;
         String app_id = "";
+        String name = "";
         int ver = 0;
         String value = null;
         String date = "";
@@ -212,13 +230,14 @@ public class ConfigDb extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             id = Integer.parseInt(cursor.getString(0));
             app_id = cursor.getString(1);
-            ver = Integer.parseInt(cursor.getString(2));
-            value = cursor.getString(3);
-            date = cursor.getString(4);
+            name = cursor.getString(2);
+            ver = Integer.parseInt(cursor.getString(3));
+            value = cursor.getString(4);
+            date = cursor.getString(5);
         }
         cursor.close();
 
-        return new ConfigurationVersions(id, app_id, ver, value, date);
+        return new ConfigurationVersions(id, app_id, name, ver, value, date);
     }
 
     public ArrayList<App> getApps() {
@@ -228,7 +247,6 @@ public class ConfigDb extends SQLiteOpenHelper {
         ArrayList<App> apps = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(req, null);
-        Log.d("request", "get all Apps : " + cursor.getCount());
 
         if (cursor.moveToFirst()) {
             do {
@@ -252,17 +270,17 @@ public class ConfigDb extends SQLiteOpenHelper {
         ArrayList<ConfigurationVersions> configurationVersions = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(req, null);
-        Log.d("request", "get all app conf : " + cursor.getCount());
 
         if (cursor.moveToFirst()) {
             do {
                 int id = Integer.parseInt(cursor.getString(0));
                 String app_id = cursor.getString(1);
-                int version = Integer.parseInt(cursor.getString(2));
+                String name = cursor.getString(2);
+                int version = Integer.parseInt(cursor.getString(3));
                 String value = cursor.getString(4);
                 String date = cursor.getString(5);
 
-                configurationVersions.add(new ConfigurationVersions(id, app_id, version, value, date));
+                configurationVersions.add(new ConfigurationVersions(id, app_id, name, version, value, date));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -276,4 +294,5 @@ public class ConfigDb extends SQLiteOpenHelper {
 
         return dateFormat.format(date);
     }
+
 }
