@@ -8,14 +8,14 @@ The Confroid project consists in creating an Android application allowing the ce
 
 The entire project has two applications, main and client :
 
-- ###_Confroid_project_:
+- ### _Confroid_project_:
 
   is the main part, it manages :
 - the different configuration is the data base,
 - generate token for its clients,
 - performe export/import tasks to/from configuration files.
 
-- ###_Test_confroid_:
+- ### _Test_confroid_:
 
   The client part, where to insert data defined by user,
 - it stores its main data in its shared preferences
