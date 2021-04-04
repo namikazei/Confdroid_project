@@ -97,7 +97,8 @@ public class ConfigDb extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean addConfiguration(String appName, String confName, String value) {
+    public void addConfiguration(String appName, String confName, String value) {
+
         ContentValues values = new ContentValues();
         int lastversion = getLastVersion(appName, confName);
         lastversion += 1;
@@ -111,11 +112,9 @@ public class ConfigDb extends SQLiteOpenHelper {
         long rep = db.insert(CONFIG_TABLE, null, values);
         if (rep == -1) {
             Toast.makeText(context, " error occured when adding configuration ", Toast.LENGTH_SHORT).show();
-            return false;
         } else {
             Toast.makeText(context, "new configuration added with version " + lastversion, Toast.LENGTH_SHORT).show();
             db.close();
-            return true;
         }
     }
 
@@ -130,10 +129,11 @@ public class ConfigDb extends SQLiteOpenHelper {
         int version = 0;
         Cursor cursor = db.rawQuery(req, null);
 
-        if (cursor.moveToFirst()) {
+        if (cursor != null && cursor.moveToFirst()) {
             version = Integer.parseInt(cursor.getString(0));
+            cursor.close();
         }
-        cursor.close();
+
         return version;
     }
 
@@ -154,10 +154,11 @@ public class ConfigDb extends SQLiteOpenHelper {
         String token = "";
         Cursor cursor = db.rawQuery(req, null);
 
-        if (cursor.moveToFirst()) {
+        if (cursor != null && cursor.moveToFirst()) {
             token = cursor.getString(0);
+            cursor.close();
         }
-        cursor.close();
+
         return token;
     }
 
@@ -170,10 +171,10 @@ public class ConfigDb extends SQLiteOpenHelper {
         int count = 0;
         Cursor cursor = db.rawQuery(req, null);
 
-        if (cursor.moveToFirst()) {
+        if (cursor != null && cursor.moveToFirst()) {
             count = Integer.parseInt(cursor.getString(0));
+            cursor.close();
         }
-        cursor.close();
         return count;
     }
 

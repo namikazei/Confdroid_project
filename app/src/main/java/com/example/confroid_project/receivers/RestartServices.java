@@ -3,8 +3,6 @@ package com.example.confroid_project.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.confroid_project.services.ConfigurationPuller;
 import com.example.confroid_project.services.ConfigurationPusher;
