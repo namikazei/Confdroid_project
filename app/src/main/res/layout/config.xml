@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginTop="7dp"
-    android:background="#00af54"
+    android:layout_marginVertical="7dp"
+    android:layout_marginHorizontal="15dp"
+    android:elevation="3dp"
+    android:background="#FFF"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -30,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Configuration"
-                android:textColor="@color/black"
+                android:textColor="#00af54"
                 android:textSize="24sp" />
 
 
@@ -52,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="1.0"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#00af54"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -75,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="01-01-2021"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#00af54"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -90,10 +92,10 @@
                 android:id="@+id/editConf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
+                android:backgroundTint="#00af54"
                 android:gravity="center_vertical"
                 android:text="modifier"
-                android:textColor="#00AF54" />
+                android:textColor="#fff" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

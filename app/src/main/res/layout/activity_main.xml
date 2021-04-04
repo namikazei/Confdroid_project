@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="#f3f8f2"
     android:layout_height="match_parent">
 
     <TableLayout
@@ -24,13 +24,13 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="15dp"
                 android:layout_weight="2"
-                android:background="#ddd"
+                android:background="#fff"
                 android:ems="10"
                 android:hint="@string/search"
                 android:inputType="textPersonName"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:textColor="#000"
+                android:textColor="#ddd"
                 android:textColorHint="#888" />
 
             <Button
@@ -54,12 +54,11 @@
             android:id="@+id/headerMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            android:paddingHorizontal="15dp"
             android:paddingBottom="15dp">
             <TextView
                 android:id="@+id/countResult"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/apps"
@@ -67,19 +66,11 @@
                 android:textSize="20sp"/>
         </TableRow>
 
-        <TableRow
-            android:id="@+id/body"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"/>
-
-        </TableRow>
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

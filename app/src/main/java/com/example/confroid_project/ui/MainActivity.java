@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confroid_project.R;
-import com.example.confroid_project.db.ConfigDb;
 import com.example.confroid_project.receivers.TokenDispenser;
 
 public class MainActivity extends AppCompatActivity {
