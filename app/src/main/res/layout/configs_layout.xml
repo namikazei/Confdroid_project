@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#FFF"
+    android:background="#f3f8f2"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
@@ -18,16 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:layout_marginRight="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:id="@+id/bt_save"
+                android:backgroundTint="#00af54"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
                 android:text="Sauvegarde" />
 
             <Button
-                android:layout_marginLeft="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:id="@+id/bt_restore"
+                android:backgroundTint="#fff"
+                android:textColor="#00af54"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Restauration" />
@@ -36,27 +38,30 @@
 
     <TextView
         android:id="@+id/tv_info"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="25dp"
         android:layout_gravity="center"
-        />
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#000"
+        android:textSize="10sp" />
 
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_margin="5dp"
+        android:paddingBottom="15dp"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_marginTop="25dp"
         android:id="@+id/vide"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
-        android:width="300dp"
         android:gravity="center"
         android:text="@string/emptyConfig"
         />
