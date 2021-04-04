@@ -1,19 +1,3 @@
-/*
- * void addApplication(String name, String token)
- * void addConfiguration(String appName, String value)
- * int getLastVersion(String appName)
- * String getAppToken(String appName)
- * void updateConf(int id, String value)
- * int countConf(String appName)
- * Config getLastConfiguration(String appName)
- * Config getConfiguration(String appName, int version)
- * ArrayList<App> getApps()
- * ArrayList<Config> getAllAppConfiguration(String appName)
- * Config getLastConfiguration(String appName)
- * Config getConfiguration(String appName, int version)
- * ArrayList<Config> getAllAppConfiguration(String appName)
- */
-
 package com.example.confroid_project.db;
 
 import android.content.ContentValues;

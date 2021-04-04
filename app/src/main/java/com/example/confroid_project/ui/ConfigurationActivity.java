@@ -2,7 +2,6 @@ package com.example.confroid_project.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.audiofx.DynamicsProcessing;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,16 +14,17 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confroid_project.R;
+import com.example.confroid_project.adapters.ConfigurationResultsAdapter;
+import com.example.confroid_project.confroidUtils.storage.StorageUtils;
 import com.example.confroid_project.db.ConfigDb;
 import com.example.confroid_project.db.ConfigurationVersions;
-import com.example.confroid_project.storage.StorageUtils;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.example.confroid_project.storage.StorageUtils.RESTORE_REQUEST_CODE;
-import static com.example.confroid_project.storage.StorageUtils.SAVE_REQUEST_CODE;
+import static com.example.confroid_project.confroidUtils.storage.StorageUtils.RESTORE_REQUEST_CODE;
+import static com.example.confroid_project.confroidUtils.storage.StorageUtils.SAVE_REQUEST_CODE;
 
 public class ConfigurationActivity extends AppCompatActivity {
     TextView tv_info;
@@ -115,7 +115,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                         confAdapter.notifyDataSetChanged();
                         tv_info.setText("Configurations restaurées !");
                     } catch (IOException e) {
-                        // Handle error here
+                        Log.d("IOException", "Erreur lors de la lecture du fichier ");
                     }
                 }
             }
