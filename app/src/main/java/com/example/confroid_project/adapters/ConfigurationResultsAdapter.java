@@ -1,4 +1,4 @@
-package com.example.confroid_project.ui;
+package com.example.confroid_project.adapters;
 
 import android.app.Activity;
 import android.app.AlertDialog;

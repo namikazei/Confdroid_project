@@ -1,4 +1,4 @@
-package com.example.confroid_project.storage;
+package com.example.confroid_project.confroidUtils.storage;
 
 import android.app.Activity;
 import android.content.Intent;

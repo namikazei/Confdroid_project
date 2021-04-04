@@ -1,4 +1,4 @@
-package com.example.confroid_project.ui;
+package com.example.confroid_project.adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.confroid_project.R;
 import com.example.confroid_project.db.App;
 import com.example.confroid_project.db.ConfigDb;
+import com.example.confroid_project.ui.ConfigurationActivity;
+import com.example.confroid_project.ui.MainActivity;
 
 import java.util.ArrayList;
 

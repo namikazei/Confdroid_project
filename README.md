@@ -20,3 +20,12 @@ The entire project has two applications, main and client :
   The client part, where to insert data defined by user,
 - it stores its main data in its shared preferences
 - pull/push data from/to the confroid application
+
+
+link :
+https://github.com/namikazei/Confdroid_project
+
+link to Test Application (Client) repository :
+https://github.com/nabilBHR/Confroid_test
+
+N.B: Two repositories are necessary !

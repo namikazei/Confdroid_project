@@ -1,11 +1,8 @@
 package com.example.confroid_project.services;
 
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -19,7 +16,7 @@ public class ConfigurationPuller extends Service {
     public void onDestroy() {
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("RestartService");
-        broadcastIntent.putExtra("type","puller");
+        broadcastIntent.putExtra("type", "puller");
         broadcastIntent.setClass(this, RestartServices.class);
         this.sendBroadcast(broadcastIntent);
     }
@@ -29,7 +26,7 @@ public class ConfigurationPuller extends Service {
         ConfigDb db = new ConfigDb(this.getApplicationContext());
         ConfigurationVersions config;
 
-        if (intent.getExtras() != null){
+        if (intent.getExtras() != null) {
             String app_token = intent.getStringExtra("token");
             String app_name = intent.getStringExtra("app_name");
 
@@ -40,9 +37,9 @@ public class ConfigurationPuller extends Service {
                 String conf_name = intent.getStringExtra("name");
 
                 if (version == -1) {
-                    config =  db.getLastConfiguration(app_name, conf_name);
+                    config = db.getLastConfiguration(app_name, conf_name);
                 } else {
-                    config =  db.getConfiguration(app_name, conf_name, version);
+                    config = db.getConfiguration(app_name, conf_name, version);
                 }
 
                 Intent outgoingIntent = new Intent("PULL_CONF_SERVICE");
@@ -55,9 +52,7 @@ public class ConfigurationPuller extends Service {
                 outgoingIntent.setClassName(app_name, receiver);
                 this.startService(outgoingIntent);
             }
-
         }
-
         return START_STICKY;
     }
 
